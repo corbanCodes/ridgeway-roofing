@@ -10,6 +10,16 @@
   to = "/services.html"
   status = 301
 
+[[redirects]]
+  from = "/services/gutters.html"
+  to = "/services/roofing.html"
+  status = 301
+
+[[redirects]]
+  from = "/credits.html"
+  to = "/"
+  status = 301
+
 [[headers]]
   for = "/*"
   [headers.values]

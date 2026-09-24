@@ -41,15 +41,6 @@
     document.querySelectorAll(".nav-drop.open").forEach(function (d) { d.classList.remove("open"); });
   });
 
-  /* "Live chat" links open the chat widget */
-  document.querySelectorAll(".open-chat").forEach(function (a) {
-    a.addEventListener("click", function (e) {
-      e.preventDefault();
-      var launch = document.querySelector(".smsc-launch");
-      if (launch) launch.click();
-    });
-  });
-
   /* reveal on scroll */
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {

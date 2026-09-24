@@ -1,7 +1,7 @@
 /* ============================================================
    Ridgeway Roofing & Construction — design system
-   Palette: Slate #2B3A48 · Ink #151C23 · Amber #E08A3C ·
-            Copper #A65A2A · Bone #F6F3ED · Mist #E9EEF2
+   Palette: Slate #2B3A48 · Ink #151C23 · Orange #FE5D03 (from the logo) ·
+            Rust #B8430A · Bone #F6F3ED · Mist #E9EEF2
    Type: Archivo (heads, expanded) · Inter (body)
    ============================================================ */
 
@@ -9,10 +9,11 @@
   --slate: #2B3A48;
   --slate-deep: #1D2833;
   --ink: #151C23;
-  --amber: #E08A3C;
-  --amber-bright: #F2A054;
-  --copper: #A65A2A;
-  --copper-light: #C0764A;
+  --amber: #FE5D03;          /* brand orange, sampled from ridgeway-logo.png */
+  --amber-bright: #FF7A2A;
+  --amber-soft: #FF9D5C;     /* small text on slate, where full orange is too dark */
+  --copper: #B8430A;         /* darkened brand orange, for small text on bone */
+  --copper-light: #D4642A;
   --bone: #F6F3ED;
   --mist: #E9EEF2;
   --white: #FFFFFF;
@@ -75,7 +76,8 @@ p { margin: 0 0 1em; }
   display: block;
   margin-bottom: 14px;
 }
-.on-slate .eyebrow, .on-ink .eyebrow { color: var(--amber); }
+.on-ink .eyebrow { color: var(--amber); }
+.on-slate .eyebrow { color: var(--amber-soft); }
 .section-head { max-width: 720px; margin-bottom: clamp(30px, 4vw, 52px); }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
 .section-head p { color: rgba(21, 28, 35, 0.72); font-size: 1.1rem; margin: 0; }
@@ -100,7 +102,7 @@ p { margin: 0 0 1em; }
 }
 .btn:hover { transform: translateY(-2px); }
 .btn svg { width: 16px; height: 16px; fill: currentColor; flex: none; }
-.btn-amber { background: var(--amber); color: var(--ink); box-shadow: 0 6px 22px rgba(224, 138, 60, 0.35); }
+.btn-amber { background: var(--amber); color: var(--ink); box-shadow: 0 6px 22px rgba(254, 93, 3, 0.32); }
 .btn-amber:hover { background: var(--amber-bright); }
 .btn-slate { background: var(--slate); color: #fff; }
 .btn-slate:hover { background: var(--slate-deep); }
@@ -109,37 +111,6 @@ p { margin: 0 0 1em; }
 .btn-ghost-dark { border-color: rgba(21, 28, 35, 0.3); color: var(--ink); background: transparent; }
 .btn-ghost-dark:hover { border-color: var(--ink); }
 .btn-sm { padding: 10px 20px; font-size: 0.9rem; }
-
-/* ------------------------------------------------ demo banner */
-.demo-bar {
-  background: var(--copper);
-  color: #fff;
-  text-align: center;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 7px 14px;
-  position: relative;
-  z-index: 1200;
-}
-.demo-bar a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
-.demo-bar strong { letter-spacing: 0.08em; }
-/* on a phone the full disclosure runs to four lines — keep the headline, drop the tail */
-@media (max-width: 700px) {
-  .demo-bar { font-size: 0.76rem; padding: 6px 12px; line-height: 1.45; }
-  .demo-bar .demo-long { display: none; }
-}
-
-/* ------------------------------------------------ utility bar */
-.util-bar { background: var(--ink); color: rgba(255, 255, 255, 0.85); font-size: 0.84rem; }
-.util-bar .wrap { display: flex; align-items: center; gap: 22px; min-height: 38px; }
-.util-bar svg { width: 13px; height: 13px; fill: currentColor; flex: none; vertical-align: -1px; }
-.util-bar a, .util-bar span { display: inline-flex; align-items: center; gap: 7px; }
-.util-bar a { color: #fff; text-decoration: none; font-weight: 600; }
-.util-bar a:hover { color: var(--amber); }
-.util-spacer { flex: 1; }
-/* `.util-bar span` above is two classes, so the hide rule has to match it or lose */
-@media (max-width: 860px) { .util-bar .util-hide { display: none; } }
 
 /* ------------------------------------------------ header */
 .site-header {
@@ -153,13 +124,24 @@ p { margin: 0 0 1em; }
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .site-header.scrolled { border-color: var(--line); box-shadow: var(--shadow-sm); }
-.nav-row { display: flex; align-items: center; gap: 30px; min-height: 76px; }
-.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-.brand img { height: 44px; width: auto; }
-.brand-text { font-family: var(--head); font-stretch: 112%; line-height: 1.05; }
-.brand-text b { display: block; font-size: 1.12rem; font-weight: 900; color: var(--slate); letter-spacing: 0.01em; }
-.brand-text span { display: block; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; color: var(--copper); text-transform: uppercase; }
+.nav-row { display: flex; align-items: center; gap: 26px; min-height: 88px; }
+/* the logo is a full lockup with its own wordmark, so no text sits beside it */
+.brand { display: flex; align-items: center; text-decoration: none; flex: none; }
+.brand img { height: 66px; width: auto; }
+@media (max-width: 1000px) { .brand img { height: 58px; } }
+@media (max-width: 420px) { .brand img { height: 46px; } }
 .main-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+/* The phone lives in the header now that the utility bar is gone. These are
+   scoped to `.main-nav >` so they outrank `.main-nav > a` further down, which
+   would otherwise win on specificity and take the styling back. */
+.main-nav > .nav-phone {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--head); font-weight: 800; font-size: 1.02rem;
+  color: var(--ink); text-decoration: none; white-space: nowrap;
+  padding: 8px 6px; border-radius: 8px;
+}
+.main-nav > .nav-phone svg { width: 16px; height: 16px; fill: var(--copper); flex: none; }
+.main-nav > .nav-phone:hover { color: var(--copper); background: none; }
 .main-nav > a, .nav-drop > button {
   font-family: var(--head);
   font-weight: 600;
@@ -248,8 +230,12 @@ p { margin: 0 0 1em; }
   .nav-drop.open .drop-menu { display: block; }
   .drop-menu a { padding: 10px 14px; font-size: 0.92rem; }
   .nav-cta { margin: 8px 6px 6px; justify-content: center; }
+  .main-nav > .nav-phone { width: 100%; padding: 12px 14px; font-size: 1.05rem; border-radius: 10px; justify-content: flex-start; }
+  .main-nav > .nav-phone:hover { background: var(--mist); }
   .nav-burger { display: block; position: relative; z-index: 1060; }
 }
+/* the header phone is redundant once the sticky dock appears */
+@media (max-width: 860px) { .main-nav > .nav-phone { display: none; } }
 
 /* ------------------------------------------------ hero */
 .hero {
@@ -354,6 +340,60 @@ p { margin: 0 0 1em; }
 .card-body > .tag { align-self: flex-start; }
 .tag.copper { background: rgba(166, 90, 42, 0.13); color: var(--copper); }
 .tag.on-img { position: absolute; top: 14px; left: 14px; background: rgba(21, 28, 35, 0.82); color: #fff; backdrop-filter: blur(4px); }
+
+/* ------------------------------------------------ reviews */
+.stars { display: inline-flex; gap: 3px; }
+.stars svg { width: 17px; height: 17px; fill: #F5A623; }
+.review-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px 30px;
+  box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.on-slate .review-card, .on-ink .review-card { background: rgba(255, 255, 255, 0.07); box-shadow: none; }
+.review-card blockquote { margin: 0; font-size: 1rem; color: rgba(21, 28, 35, 0.85); flex: 1; }
+.on-slate .review-card blockquote, .on-ink .review-card blockquote { color: rgba(255, 255, 255, 0.88); }
+.review-job {
+  font-family: var(--head); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.09em; color: var(--copper);
+}
+.on-slate .review-job, .on-ink .review-job { color: var(--amber-soft); }
+.review-meta { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.review-ava {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--slate); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--head); font-weight: 800; font-size: 1.05rem; flex: none;
+}
+.on-slate .review-ava, .on-ink .review-ava { background: var(--amber); color: var(--ink); }
+.review-meta b { font-family: var(--head); font-size: 0.95rem; display: block; line-height: 1.3; }
+.review-meta small { color: rgba(21, 28, 35, 0.55); font-size: 0.8rem; }
+.on-slate .review-meta small, .on-ink .review-meta small { color: rgba(255, 255, 255, 0.58); }
+.review-agg { display: inline-flex; align-items: center; gap: 12px; font-family: var(--head); font-weight: 700; }
+.review-agg .num { font-size: 2rem; font-weight: 900; line-height: 1; }
+.masonry-cards { columns: 3 300px; column-gap: 22px; }
+.masonry-cards .review-card { break-inside: avoid; margin-bottom: 22px; }
+
+/* ------------------------------------------------ floating call button
+   replaces the chat bubble; hidden on phones, where the dock already has Call */
+.call-fab {
+  position: fixed;
+  right: 22px; bottom: 22px;
+  z-index: 1150;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: var(--amber);
+  color: var(--ink);
+  font-family: var(--head); font-weight: 800; font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(21, 28, 35, 0.3);
+  transition: transform 0.16s ease, background 0.16s ease;
+}
+.call-fab svg { width: 17px; height: 17px; fill: currentColor; flex: none; }
+.call-fab:hover { background: var(--amber-bright); transform: translateY(-2px); }
+@media (max-width: 860px) { .call-fab { display: none; } }
 
 /* ------------------------------------------------ process steps */
 .steps { counter-reset: step; }
@@ -485,7 +525,7 @@ p { margin: 0 0 1em; }
 .site-footer a:hover { color: var(--amber); }
 .footer-links li { margin-bottom: 10px; }
 .site-footer ul { list-style: none; margin: 0; padding: 0; }
-.footer-brand img { height: 50px; margin-bottom: 16px; }
+.footer-brand img { height: 62px; width: auto; margin-bottom: 18px; }
 .footer-brand p { max-width: 36ch; font-size: 0.92rem; }
 .footer-areas { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px; padding-bottom: 20px; font-size: 0.84rem; color: rgba(255, 255, 255, 0.55); }
 .footer-areas a { color: rgba(255, 255, 255, 0.7); }
@@ -557,7 +597,8 @@ p { margin: 0 0 1em; }
 .split-img img { width: 100%; height: 100%; object-fit: cover; }
 .check-list { list-style: none; margin: 0 0 24px; padding: 0; }
 .check-list li { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 13px; font-weight: 500; }
-.check-list svg { width: 20px; height: 20px; fill: var(--amber); flex: none; margin-top: 4px; }
+.check-list svg { width: 20px; height: 20px; fill: var(--copper); flex: none; margin-top: 4px; }
+.on-slate .check-list svg, .on-ink .check-list svg { fill: var(--amber); }
 .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 26px; }
 .check-grid li { margin-bottom: 8px; }
 @media (max-width: 640px) { .check-grid { grid-template-columns: 1fr; } }
@@ -601,46 +642,7 @@ p { margin: 0 0 1em; }
   background: var(--amber); flex: none;
 }
 
-/* ------------------------------------------------ placeholder review cards
-   Terry has no published reviews yet, so this demo shows the slot instead of
-   inventing testimonials. See DEMO-NOTES.md. */
-.ghost-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-@media (max-width: 860px) { .ghost-grid { grid-template-columns: 1fr; } }
-.ghost-card {
-  border: 2px dashed rgba(255, 255, 255, 0.22);
-  border-radius: var(--radius-lg);
-  padding: 26px 28px;
-  display: flex; flex-direction: column; gap: 14px;
-  background: rgba(255, 255, 255, 0.03);
-}
-.ghost-stars { display: inline-flex; gap: 4px; }
-.ghost-stars svg { width: 17px; height: 17px; fill: rgba(255, 255, 255, 0.22); }
-.ghost-line { height: 10px; border-radius: 999px; background: rgba(255, 255, 255, 0.11); }
-.ghost-line.w90 { width: 90%; } .ghost-line.w75 { width: 75%; } .ghost-line.w60 { width: 60%; }
-.ghost-meta { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
-.ghost-ava { width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.11); flex: none; }
-.ghost-name { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-.ghost-note {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.5);
-  text-align: center;
-  margin: 26px auto 0;
-  max-width: 60ch;
-}
 
-/* ------------------------------------------------ stock-photo disclosure */
-.stock-note {
-  display: flex; gap: 12px; align-items: flex-start;
-  background: rgba(166, 90, 42, 0.1);
-  border-left: 3px solid var(--copper);
-  border-radius: 10px;
-  padding: 14px 18px;
-  font-size: 0.88rem;
-  color: rgba(21, 28, 35, 0.75);
-  max-width: 760px;
-}
-.stock-note svg { width: 17px; height: 17px; fill: var(--copper); flex: none; margin-top: 3px; }
-.stock-note a { color: var(--copper); }
 
 /* ------------------------------------------------ reveal on scroll */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -650,8 +652,4 @@ p { margin: 0 0 1em; }
   html { scroll-behavior: auto; }
 }
 
-/* keep the chat bubble clear of the mobile dock */
-@media (max-width: 860px) {
-  .smsc-launch { bottom: calc(var(--dock-h) + 26px) !important; }
-  .smsc-panel { bottom: calc(var(--dock-h) + 96px) !important; }
 }

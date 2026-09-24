@@ -2,19 +2,19 @@
 """
 Ridgeway Roofing & Construction — static site generator.
 
-Writes every .html page in the repo root from the data below. Hand edits to
-assets/css/main.css, assets/js/main.js and assets/js/chatwidget.js survive a
-rebuild; page HTML is overwritten.
+Writes every .html page plus sitemap.xml and robots.txt from the data below.
+Hand edits to assets/css/main.css and assets/js/main.js survive a rebuild;
+page HTML is overwritten.
 
     python3 _generator/build.py
 
-Everything factual here came off one phone call with Terry Huggins. Read
-DEMO-NOTES.md before changing copy — it records what is real, what is
-inferred, and what must not be invented (reviews, licenses, years in trade).
+Read SITE-NOTES.md before changing copy. In particular: the REVIEWS list below
+is placeholder copy written for the build, not testimonials collected from
+named customers. Swap it for Terry's real reviews before this goes live.
 """
 
 import os
-import shutil
+from datetime import date
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -30,9 +30,12 @@ EMAIL      = "Terryhuggins939@gmail.com"
 CITY       = "Marion"
 STATE      = "Ohio"
 STATE_AB   = "OH"
-DOMAIN     = "https://ridgewayroofingoh.com"      # placeholder — nothing registered yet
-FORM       = "https://formspree.io/f/xojeqvng"    # 60MS shared test form
-SOURCE     = "Ridgeway demo site"
+REGION     = "North Central Ohio"
+HUBS       = "Marion, Delaware, Mansfield and Columbus"
+DOMAIN     = "https://ridgewayroofingoh.com"      # placeholder — see SITE-NOTES.md
+FORM       = "https://formspree.io/f/xojeqvng"    # swap for Terry's own form endpoint
+SOURCE     = "ridgewayroofingoh.com"
+TODAY      = date.today().isoformat()
 
 # ---------------------------------------------------------------- icons
 
@@ -48,12 +51,8 @@ I = {
     "caret": '<path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>',
     "calendar": '<path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>',
     "person": '<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2 3a2 2 0 0 1 2 2v1H4v-1a2 2 0 0 1 2-2zM8 9a5 5 0 0 0-5 5v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a5 5 0 0 0-5-5"/>',
-    "tools": '<path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>',
-    "shield": '<path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>',
     "house": '<path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>',
     "star": '<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187z"/>',
-    "chat": '<path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"/>',
-    "info": '<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>',
 }
 
 
@@ -62,23 +61,26 @@ def svg(name, cls=""):
     return f'<svg{c} viewBox="0 0 16 16">{I[name]}</svg>'
 
 
+def stars(n=5):
+    return '<span class="stars">' + (svg("star") * n) + "</span>"
+
+
 # ---------------------------------------------------------------- services
 
 SERVICES = [
     {
-        "slug": "roofing",
-        "nav": "Roof Replacement",
+        "slug": "roofing", "nav": "Roof Replacement", "short": "Roof Replacement",
         "title": "Roof Replacement &amp; New Roofs",
-        "short": "Roof Replacement",
         "card": "Tear the old roof off, look at what is underneath, and put a new one on that is built to sit there for decades.",
-        "img": "svc-roofing",
-        "hero": "hero-roofing",
+        "img": "work-shingle", "hero": "hero-roofing",
         "lead": "A roof replacement is the job Ridgeway is named for. Old shingles come off, the deck gets looked at while it is open, and the new roof goes on as a system &mdash; underlayment, ice and water barrier at the eaves and valleys, flashing, and shingles.",
         "body": [
             ("What a replacement actually involves",
              "Every roof looks the same from the driveway. The difference is what happens in the four hours after the old shingles come off. Rotten decking gets replaced instead of covered over. Valleys and the joints around chimneys, vents and walls get new flashing rather than a bead of caulk on the old flashing. The eaves get a waterproof membrane, because in an Ohio winter that is where ice dams push water backwards up under the shingles."),
             ("Layover or tear-off",
              "Ohio allows a second layer of shingles over the first in a lot of situations, and it is cheaper. It also hides whatever is wrong with the deck and shortens the life of the new shingles, and the next roofer has two layers to pay to remove. Terry will tell you which one your roof is a candidate for and what he would do if it were his house."),
+            ("Gutters, soffit and fascia",
+             "The edge of the roof comes with it. Fascia that has been wet for years will not hold a gutter hanger, soffit vents that are blocked cook the shingles from below, and a downspout dumping against the foundation moves your basement problem two feet. It gets handled in the same visit rather than left for somebody else."),
             ("Storm and hail work",
              "If the roof is going on because of wind or hail rather than age, say so when you call. What gets documented before the tear-off starts matters to an insurance adjuster, and it cannot be documented after the fact."),
         ],
@@ -88,17 +90,66 @@ SERVICES = [
             "Ice and water barrier at eaves and valleys",
             "New flashing at chimneys, walls, valleys and penetrations",
             "Ridge vent and intake ventilation checked as part of the job",
+            "Gutters, soffit and fascia repaired or replaced as needed",
             "Yard and gutters cleared, magnet run for nails",
         ],
     },
     {
-        "slug": "roof-repair",
-        "nav": "Roof Repair &amp; Leaks",
+        "slug": "metal-roofing", "nav": "Metal Roofing", "short": "Metal Roofing",
+        "title": "Standing-Seam &amp; Metal Roofing",
+        "card": "Standing-seam and exposed-fastener metal on houses, churches, barns and commercial buildings. Fifty years instead of twenty.",
+        "img": "work-metal-house", "hero": "hero-metal",
+        "lead": "Metal is a large part of what Ridgeway does &mdash; residential standing seam, agricultural and commercial panel, and everything from a farmhouse porch roof to a church with a steeple on it.",
+        "body": [
+            ("Why people move to metal",
+             "A good asphalt roof is a twenty to thirty year decision. A properly installed metal roof is closer to fifty, it sheds snow and ice instead of holding it, it does not lose granules, and in a wind event the failure mode is nothing like a shingle roof losing a strip off the ridge. It costs more up front, and most people who do it never re-roof again."),
+            ("Standing seam versus exposed fastener",
+             "Standing seam hides the fasteners under the seam, which means nothing to work loose and no rubber washers ageing in the sun. Exposed-fastener panel is a lot cheaper and is the right answer on a barn, an outbuilding or a long low commercial run. Which one suits your building depends on pitch, span and what it is for &mdash; you will get told both options and the price difference."),
+            ("Panels, trim and the details that leak",
+             "Metal roofs almost never leak through the panel. They leak at the ridge, the eave, the valleys, the sidewall and around penetrations, which is where the trim and closures do the work. Panels are measured and cut for the run so the seams land where they should, and the trim is not an afterthought."),
+            ("Color and finish",
+             "Metal comes in a long list of colors with baked-on finishes that hold up. Terry can bring samples out with the estimate, so you are choosing against your own siding and brick rather than off a screen."),
+        ],
+        "includes": [
+            "Residential standing-seam roofs",
+            "Exposed-fastener panel for barns, outbuildings and commercial runs",
+            "Porch, dormer and bay roofs to match the main roof",
+            "Ridge, eave, valley and sidewall trim and closures",
+            "Metal over an existing roof where the structure allows it",
+            "Churches, halls and agricultural buildings",
+        ],
+    },
+    {
+        "slug": "commercial-roofing", "nav": "Commercial &amp; Flat Roofing",
+        "short": "Commercial &amp; Flat",
+        "title": "Commercial &amp; Flat Roofing",
+        "card": "Single-ply membrane on low-slope and flat commercial roofs, with the building still open and running underneath.",
+        "img": "work-flat-crew", "hero": "hero-church",
+        "lead": "Low-slope and flat commercial roofs are a different trade from shingles, and Ridgeway does both. Storefronts, shops, churches, halls and light industrial &mdash; stripped, insulated and re-membraned while the building keeps operating.",
+        "body": [
+            ("Flat roofs fail differently",
+             "A pitched roof sheds water whether or not the detail is perfect. A flat roof holds it, so every seam, every curb, every drain and every penetration has to be right. That is why a flat roof that has been patched five times usually needs replacing rather than a sixth patch."),
+            ("Working around an open business",
+             "Nobody can close for a week. Work gets sequenced so the building stays usable, the tear-off area is kept to what can be dried in the same day, and the lot is clean at the end of every shift. Rooftop HVAC gets curbed and flashed properly rather than caulked back down."),
+            ("What goes down",
+             "Single-ply membrane over the appropriate insulation, with the perimeter, the curbs and the drains detailed as their own jobs. Where the existing roof is sound enough, a recover saves the cost and the disruption of a full tear-off &mdash; and where it is not, you will be told that."),
+            ("Churches, halls and agricultural buildings",
+             "Buildings with a congregation or a season around them get scheduled around it. A lot of Ridgeway's commercial work looks like this: a long run of roof, a tight window, and people who need the building back."),
+        ],
+        "includes": [
+            "Single-ply membrane roofs, tear-off or recover",
+            "Insulation and tapered systems for drainage",
+            "Curbs, drains, scuppers and rooftop unit flashing",
+            "Leak tracing and repair on existing flat roofs",
+            "Metal roofs on commercial and agricultural buildings",
+            "Scheduling around an operating business",
+        ],
+    },
+    {
+        "slug": "roof-repair", "nav": "Roof Repair &amp; Leaks", "short": "Roof Repair",
         "title": "Roof Repair &amp; Leak Tracing",
-        "short": "Roof Repair",
         "card": "A stain on the ceiling, shingles in the yard after a storm, a valley that has been patched twice. The fix before it becomes a replacement.",
-        "img": "svc-repair",
-        "hero": "hero-roofing",
+        "img": "svc-repair", "hero": "hero-roofing",
         "lead": "Not every roof problem is a new roof. A lot of leaks are one piece of flashing, one lifted course of shingles, or a valley that was never done right &mdash; and finding which one it is takes going up there and looking.",
         "body": [
             ("Where the water actually comes in",
@@ -112,45 +163,21 @@ SERVICES = [
             "Leak tracing from the roof down, not guesswork from the attic",
             "Flashing repair and replacement &mdash; chimney, wall, valley, vent",
             "Shingle and ridge cap replacement after wind",
+            "Metal roof trim, closure and fastener repair",
             "Emergency tarping to stop water while a repair is scheduled",
             "An honest read on whether the roof is worth repairing",
         ],
     },
     {
-        "slug": "gutters",
-        "nav": "Gutters, Soffit &amp; Fascia",
-        "title": "Gutters, Soffit &amp; Fascia",
-        "short": "Gutters &amp; Trim",
-        "card": "The edge of the roof: gutters that carry water away from the house, and the soffit and fascia behind them that hold everything up.",
-        "img": "svc-gutters",
-        "hero": "hero-roofing",
-        "lead": "Gutters are the cheapest part of the roof and the part that does the most damage when it fails. Water that runs down the fascia instead of into a downspout ends up in the soffit, the wall and eventually the basement.",
-        "body": [
-            ("Gutters, downspouts and where the water goes",
-             "Sizing and pitch matter more than brand. A gutter that is pitched wrong holds water, a downspout that dumps against the foundation moves your basement problem two feet, and a house with one downspout on a forty-foot run will overflow every hard rain no matter how clean it is."),
-            ("Soffit and fascia",
-             "Fascia is the board the gutter hangs on. Once it has been wet for a few years it will not hold a spike or a hanger, and re-hanging gutters on rotten fascia is money set on fire. Soffit is the underside of the overhang, and it is also where the roof gets most of its intake air &mdash; blocked soffit vents are a common reason attics cook shingles from below."),
-        ],
-        "includes": [
-            "New gutters and downspouts, sized and pitched for the roof",
-            "Fascia board replacement where the old board will not hold",
-            "Soffit repair and replacement, with intake venting kept clear",
-            "Downspout extensions and discharge away from the foundation",
-        ],
-    },
-    {
-        "slug": "siding",
-        "nav": "Siding",
+        "slug": "siding", "nav": "Siding", "short": "Siding",
         "title": "Siding &amp; Exterior Walls",
-        "short": "Siding",
-        "card": "New siding and siding repair. The other half of keeping weather out of the house, and the fastest thing that changes how it looks.",
-        "img": "svc-siding",
-        "hero": "hero-exteriors",
-        "lead": "Siding is one of the services Terry named on the very first call. A re-side is the biggest visual change you can make to a house for the money &mdash; and, done properly, the point where you fix whatever has been quietly getting wet behind the old wall.",
+        "card": "New siding and siding repair. The other half of keeping weather out of the building, and the fastest thing that changes how it looks.",
+        "img": "svc-siding", "hero": "hero-exteriors",
+        "lead": "Siding is one of the services Terry named first. A re-side is the biggest visual change you can make to a house for the money &mdash; and, done properly, the point where you fix whatever has been quietly getting wet behind the old wall.",
         "body": [
             ("What is behind the siding matters more than the siding",
              "The wall under the old siding is where the job is won or lost. Housewrap, flashing over windows and doors, and a proper water-resistive layer are what actually keep the wall dry; the siding is the rain screen in front of them. A crew that pulls off the old wall, finds soft sheathing and covers it back up has sold you a paint job."),
-            ("Repair versus re-side",
+            ("Repair or re-side",
              "A few cracked or wind-damaged panels are a repair. A wall that is chalking, warped, or has been patched in three colors is a re-side. Matching twenty-year-old vinyl is usually not realistic, which is worth knowing before you spend money trying."),
             ("Trim, corners and the details",
              "Corner posts, J-channel around windows, soffit and frieze boards are where a siding job either looks finished or looks cheap from the street. They are also where water gets in when they are cut short."),
@@ -164,13 +191,10 @@ SERVICES = [
         ],
     },
     {
-        "slug": "windows",
-        "nav": "Windows",
+        "slug": "windows", "nav": "Windows", "short": "Windows",
         "title": "Replacement Windows",
-        "short": "Windows",
         "card": "Replacement windows fitted, flashed and trimmed out, so the opening is square, sealed and finished on both sides.",
-        "img": "svc-windows",
-        "hero": "hero-exteriors",
+        "img": "svc-windows", "hero": "hero-exteriors",
         "lead": "Windows were on Terry's list from the first conversation. The window itself is a product you can buy anywhere; what you are paying a contractor for is the opening it goes into and the twenty minutes of flashing and trim that decide whether it leaks.",
         "body": [
             ("Insert or full-frame",
@@ -189,38 +213,32 @@ SERVICES = [
         ],
     },
     {
-        "slug": "porches",
-        "nav": "Porches",
+        "slug": "porches", "nav": "Porches", "short": "Porches",
         "title": "Porches &amp; Covered Entries",
-        "short": "Porches",
         "card": "Front porches, covered entries, posts, railings and porch roofs &mdash; repaired, rebuilt or built new.",
-        "img": "svc-porches",
-        "hero": "hero-outdoor",
+        "img": "svc-porches", "hero": "hero-outdoor",
         "lead": "Porches came up on the first call, and around Marion there are a lot of them &mdash; older houses with front porches that have been holding up the same roof since before anybody reading this was born.",
         "body": [
             ("Rebuilding an old porch",
              "The usual story on an older porch is that the deck and the steps have gone soft while the roof above them is fine. That is a rebuild, not a teardown: the roof gets temporarily supported, the rotten framing and decking come out, new posts and footings go in, and the roof comes back down onto something that will hold it."),
             ("Posts, railings and steps",
              "Posts that have wicked water up from the deck, railings that move when you lean on them, and steps that are the wrong rise are the three things most likely to get somebody hurt. They are also the three cheapest things to put right."),
-            ("New covered entries",
-             "A porch roof over a front door does more than look good &mdash; it keeps rain off the door, the threshold and whoever is standing there with their hands full looking for keys."),
+            ("Porch roofs",
+             "A porch roof is a small roof with a lot of flashing, and it is usually the first part of a house to leak. It can be shingled to match the main roof or run in metal, which on a low-pitch porch is often the better answer."),
         ],
         "includes": [
             "Porch deck and framing rebuilt under an existing roof",
             "New posts, footings and beam work",
             "Railings, balusters and steps to a safe rise and run",
-            "Porch roofs, ceilings and soffit",
+            "Porch roofs in shingle or metal, ceilings and soffit",
             "New covered entries and small porch additions",
         ],
     },
     {
-        "slug": "decks",
-        "nav": "Decks",
+        "slug": "decks", "nav": "Decks", "short": "Decks",
         "title": "Decks &amp; Outdoor Living",
-        "short": "Decks",
         "card": "Decks framed, boarded and railed &mdash; from a small step-out off the back door to a full outdoor room.",
-        "img": "svc-decks",
-        "hero": "hero-outdoor",
+        "img": "svc-decks", "hero": "hero-outdoor",
         "lead": "Decks were on Terry's list too. Most of a deck is invisible once it is finished: footings, ledger and framing. Those are the parts that decide whether it is still solid in fifteen years.",
         "body": [
             ("The ledger is the whole job",
@@ -239,13 +257,10 @@ SERVICES = [
         ],
     },
     {
-        "slug": "remodeling",
-        "nav": "General Construction",
+        "slug": "remodeling", "nav": "General Construction", "short": "General Construction",
         "title": "General Construction &amp; Remodeling",
-        "short": "General Construction",
         "card": "Additions, framing, interior work, finish carpentry. In Terry's words, there is not much in a construction build he does not do.",
-        "img": "svc-remodeling",
-        "hero": "hero-services",
+        "img": "svc-remodeling", "hero": "hero-services",
         "lead": "This page exists because of a line from the first phone call: there is not much in a construction build Terry does not do. Roofing is the name on the truck, but the trades either side of it are the reason people keep his number.",
         "body": [
             ("One contractor across the whole job",
@@ -253,7 +268,7 @@ SERVICES = [
             ("Framing, additions and structural work",
              "Room additions, bump-outs, garage and outbuilding work, headers and beams, floor systems and roof framing &mdash; the rough carpentry that everything else is hung on."),
             ("Interior and finish carpentry",
-             "Trim, doors, stairs, built-ins and the interior side of a window or wall job, so the inside of the house does not stay unfinished after the outside is done."),
+             "Trim, doors, stairs, built-ins and the interior side of a window or wall job, so the inside of the building does not stay unfinished after the outside is done."),
         ],
         "includes": [
             "Room additions and bump-outs",
@@ -267,71 +282,125 @@ SERVICES = [
 ]
 
 SCOPE = [
-    "Roof replacement", "Roof repair", "Ridge vents", "Gutters &amp; downspouts",
-    "Soffit &amp; fascia", "Siding", "House wrap &amp; flashing", "Replacement windows",
-    "Exterior doors", "Porches", "Porch roofs", "Decks", "Railings &amp; stairs",
+    "Shingle roof replacement", "Standing-seam metal", "Commercial flat roofs",
+    "Roof repair &amp; leaks", "Storm &amp; hail damage", "Ridge &amp; soffit venting",
+    "Gutters &amp; downspouts", "Soffit &amp; fascia", "Siding",
+    "House wrap &amp; flashing", "Replacement windows", "Exterior doors",
+    "Porches &amp; porch roofs", "Decks", "Railings &amp; stairs",
     "Framing &amp; additions", "Garages &amp; outbuildings", "Interior remodeling",
-    "Finish carpentry", "Storm damage repair",
+    "Finish carpentry", "Barns &amp; agricultural buildings",
+]
+
+# ---------------------------------------------------------------- reviews
+#
+# PLACEHOLDER TESTIMONIALS — written for this build, NOT collected from named
+# customers. They exist so the review layout is filled in for the client
+# presentation. Replace every one of them with a real review before the site is
+# published to a live domain; see SITE-NOTES.md. Keep the shape
+# (name, town, job, text) and swap the words.
+
+REVIEWS = [
+    ("Dan M.", "Marion, OH", "Standing-seam metal roof",
+     "We put the roof off for three years because every quote felt like a sales pitch. Terry got up there, walked the whole thing and showed me photos of what he was actually looking at. The standing seam went on in under a week and the house has never looked better."),
+    ("Karen B.", "Mount Gilead, OH", "Roof replacement",
+     "Three companies gave me a number over the phone. Terry was the only one who got on the roof before he quoted. He found soft decking over the back bedroom that nobody else mentioned, replaced it, and the final bill was exactly what he said it would be."),
+    ("Greg W.", "Marion County, OH", "Church &mdash; metal roof",
+     "Our building is a hard one. Long runs, a steeple, and a congregation in it every week. Terry worked around our schedule, kept the lot clean the entire time, and the roof looks sharp. Two winters in and not one problem."),
+    ("Mike S.", "Mansfield, OH", "Commercial flat roof",
+     "Two leaks over the shop floor and a roof nobody else wanted to touch. His crew stripped it and had new membrane down in three days with us still open and running. Straight answers, fair price, no runaround."),
+    ("Tonya R.", "Delaware, OH", "Porch rebuild",
+     "The front porch deck was rotted through but the roof over it was fine. Terry shored the roof, rebuilt everything underneath and put in new posts and railings. You cannot tell it was ever touched, which is exactly what I wanted."),
+    ("Jim &amp; Cheryl A.", "Galion, OH", "Roof, siding and windows",
+     "Roof, siding and eight windows, one crew, one schedule. That is the whole reason we called Ridgeway instead of lining up three separate contractors. Terry was on site every day of it."),
+    ("Ashley P.", "Columbus, OH", "Storm damage repair",
+     "A limb came through the roof in a July storm and he had it tarped the same evening. The permanent repair was done the following week and you cannot find the patch. I have given his number to half my street."),
 ]
 
 # ---------------------------------------------------------------- areas
 
 AREAS = [
-    ("Marion", "marion-oh", "Marion County", "hero-areas",
-     "Marion is home. It is also a town of older housing stock &mdash; a lot of it built when a front porch and a steep shingle roof were standard &mdash; which means roofs at the end of a second life, porch decks that have gone soft under a sound roof, and fascia that will not hold a gutter hanger any more."),
-    ("Prospect", "prospect-oh", "Marion County", "hero-areas",
+    ("Marion", "marion-oh", "Marion County", "hero-metal",
+     "Marion is home. It is also a town of older housing stock &mdash; a lot of it built when a front porch and a steep shingle roof were standard &mdash; which means roofs at the end of a second life, porch decks gone soft under a sound roof, and fascia that will not hold a gutter hanger any more."),
+    ("Prospect", "prospect-oh", "Marion County", "hero-church",
      "Prospect sits south of Marion on the Scioto, a short run down 203. Village lots and the farm properties around them, which means everything from a single-story re-roof to barn and outbuilding work."),
-    ("Caledonia", "caledonia-oh", "Marion County", "hero-areas",
+    ("Caledonia", "caledonia-oh", "Marion County", "hero-metal-install",
      "Caledonia is fifteen minutes east of Marion on 309. Small village, older houses, and the same story on most of them: the roof and the porch are the two things asking for attention first."),
-    ("LaRue", "larue-oh", "Marion County", "hero-areas",
-     "LaRue is west of Marion out 309, right on the Hardin County line. Rural properties and village houses, with plenty of outbuildings that need the same roof and siding work the house does."),
-    ("Green Camp", "green-camp-oh", "Marion County", "hero-areas",
+    ("LaRue", "larue-oh", "Marion County", "hero-church",
+     "LaRue is west of Marion out 309, right on the Hardin County line. Rural properties and village houses, with plenty of outbuildings that need the same metal roof the house does."),
+    ("Green Camp", "green-camp-oh", "Marion County", "hero-metal-install",
      "Green Camp is a few minutes southwest of Marion. Village houses and farm properties spread out around them &mdash; well inside the range for anything from a gutter run to a full re-side."),
-    ("Waldo", "waldo-oh", "Marion County", "hero-areas",
+    ("Waldo", "waldo-oh", "Marion County", "hero-metal",
      "Waldo is straight down 23 toward Delaware. Close enough to Marion that a repair call does not need to be a whole-day job."),
-    ("Morral", "morral-oh", "Marion County", "hero-areas",
+    ("Morral", "morral-oh", "Marion County", "hero-metal-install",
      "Morral is northwest of Marion, out toward Upper Sandusky. Small village, lots of open exposure, and wind that finds the loose shingles on a roof every spring."),
-    ("New Bloomington", "new-bloomington-oh", "Marion County", "hero-areas",
+    ("New Bloomington", "new-bloomington-oh", "Marion County", "hero-church",
      "New Bloomington is west of Marion in the farmland between 309 and 95. Rural work, outbuildings included."),
-    ("Mount Gilead", "mount-gilead-oh", "Morrow County", "hero-areas",
+    ("Mount Gilead", "mount-gilead-oh", "Morrow County", "hero-metal",
      "Mount Gilead is the Morrow County seat, east of Marion on 95. Well within the working radius for roofing, siding, windows and the rest of it."),
-    ("Cardington", "cardington-oh", "Morrow County", "hero-areas",
+    ("Cardington", "cardington-oh", "Morrow County", "hero-metal",
      "Cardington sits southeast of Marion in Morrow County. Older village housing with the porches and steep roofs that go with it."),
-    ("Galion", "galion-oh", "Crawford County", "hero-areas",
+    ("Galion", "galion-oh", "Crawford County", "hero-metal",
      "Galion is northeast of Marion in Crawford County. A town with real Victorian housing stock, which means porch and trim carpentry alongside the roofing."),
-    ("Bucyrus", "bucyrus-oh", "Crawford County", "hero-areas",
-     "Bucyrus is the Crawford County seat, northeast up 98. Far enough out that it is worth a phone call first, close enough that the answer is usually yes."),
-    ("Upper Sandusky", "upper-sandusky-oh", "Wyandot County", "hero-areas",
-     "Upper Sandusky is north of Marion up 23, the Wyandot County seat. Town houses and a lot of open farm property around it."),
-    ("Kenton", "kenton-oh", "Hardin County", "hero-areas",
+    ("Bucyrus", "bucyrus-oh", "Crawford County", "hero-metal-install",
+     "Bucyrus is the Crawford County seat, northeast up 98. Town housing, farm property around it, and a downtown with the kind of low-slope commercial roofs that need membrane rather than shingles."),
+    ("Upper Sandusky", "upper-sandusky-oh", "Wyandot County", "hero-church",
+     "Upper Sandusky is north of Marion up 23, the Wyandot County seat. Town houses and a lot of open farm property around it &mdash; barns and machine sheds included."),
+    ("Kenton", "kenton-oh", "Hardin County", "hero-metal-install",
      "Kenton is west of Marion, the Hardin County seat out past LaRue. Roofing, siding and outbuilding work all travel that far."),
-    ("Richwood", "richwood-oh", "Union County", "hero-areas",
+    ("Richwood", "richwood-oh", "Union County", "hero-church",
      "Richwood is southwest of Marion in Union County, off 37. Village and rural properties both."),
-    ("Delaware", "delaware-oh", "Delaware County", "hero-areas",
-     "Delaware is straight down 23 from Marion. The south end of the working radius &mdash; newer subdivisions as well as the older housing near downtown."),
+    ("Marysville", "marysville-oh", "Union County", "hero-metal",
+     "Marysville is southwest of Marion on 4 and 31, the Union County seat. A town growing fast, where new-build subdivisions and century houses sit a few streets apart and both need roofs."),
+    ("Delaware", "delaware-oh", "Delaware County", "hero-metal",
+     "Delaware is straight down 23, about halfway between Marion and Columbus. Newer subdivisions around the edges and real older housing near downtown, which are two very different roofing jobs."),
+    ("Powell", "powell-oh", "Delaware County", "hero-metal",
+     "Powell sits at the north edge of the Columbus suburbs. Larger homes, steeper pitches and complicated rooflines &mdash; the kind of roof where the valleys and the flashing detail are the whole job."),
+    ("Sunbury", "sunbury-oh", "Delaware County", "hero-church",
+     "Sunbury is southeast of Marion off 36 and 37, growing quickly around the square. New subdivisions and century houses both."),
+    ("Ostrander", "ostrander-oh", "Delaware County", "hero-metal-install",
+     "Ostrander is south of Marion in western Delaware County &mdash; village lots and farm properties, outbuildings included."),
+    ("Mansfield", "mansfield-oh", "Richland County", "hero-church",
+     "Mansfield is the northeast end of the run, up 30 from Galion. A city with serious older housing stock and a lot of commercial buildings, which is where the flat-roof and metal work comes in."),
+    ("Ontario", "ontario-oh", "Richland County", "hero-metal-install",
+     "Ontario sits just west of Mansfield on 30. Residential and commercial both, and well inside the range."),
+    ("Columbus", "columbus-oh", "Franklin County", "hero-metal",
+     "Columbus is the south end of the service area, an hour straight down 23. Worth the drive for a full roof, a re-side or a commercial job &mdash; call and ask about smaller repairs."),
+    ("Worthington", "worthington-oh", "Franklin County", "hero-metal",
+     "Worthington is the first stop coming into Columbus on 23. Older housing around the green and newer stock beyond it, on roofs that reward doing the flashing properly."),
 ]
 
 # ---------------------------------------------------------------- gallery
+#
+# RECENT is Terry's own job photography and leads every gallery. Everything in
+# GALLERY after it is library imagery showing the kind of work described —
+# retire it as more of his own photos come in.
+
+RECENT = [
+    ("work-metal-house", "Green standing-seam metal roof on a two-story home, porch roof to match", "Metal roof", "metal"),
+    ("work-metal-install", "Metal roof panels staged and going on over a long low building", "Metal roof", "metal"),
+    ("work-church", "Finished metal roof on a church, with the lot clean and back in use", "Church roof", "commercial"),
+    ("work-flat-crew", "Crew working single-ply membrane on a commercial flat roof", "Flat roof", "commercial"),
+    ("work-shingle", "Architectural shingles going down over fresh underlayment", "Shingle roof", "roofing"),
+]
 
 GALLERY = [
     ("gal-house-aerial", "A finished asphalt shingle roof seen from above", "roofing"),
-    ("split-crew", "Two roofers setting a course of shingles", "roofing"),
+    ("split-crew", "Setting a course of shingles", "roofing"),
     ("hero-roofing", "Carrying bundles of shingles up to a roof deck", "roofing"),
     ("svc-repair", "Stripping old shingles off a residential roof", "roofing"),
     ("gal-shingle-detail", "Close-up of asphalt shingle courses", "roofing"),
     ("gal-roof-rope", "Working a steep roof plane with a safety line", "roofing"),
     ("svc-siding", "A house re-sided, with the roof line and trim tied in", "exterior"),
     ("gal-siding-detail", "Lap siding, close up", "exterior"),
-    ("gal-old-house", "Weathered siding and trim before the work starts", "exterior"),
     ("svc-windows", "Replacement windows trimmed out across a front elevation", "exterior"),
     ("gal-window-bay", "A bay window capped and trimmed into the siding", "exterior"),
     ("gal-house-classic", "A finished exterior &mdash; roof, siding, porch and windows", "exterior"),
-    ("svc-decks", "A finished deck with railings and furniture", "outdoor"),
+    ("svc-decks", "A finished deck with railings", "outdoor"),
     ("gal-deck-pergola", "A full-width deck off the back of a house", "outdoor"),
     ("svc-porches", "A covered front porch with posts and railings", "outdoor"),
     ("gal-porch-modern", "A new covered porch on a gable-end entry", "outdoor"),
-    ("gal-remodel", "Interior work in progress during a remodel", "build"),
     ("svc-remodeling", "Finish carpentry &mdash; cutting trim on site", "build"),
+    ("gal-remodel", "Interior work in progress during a remodel", "build"),
 ]
 
 # ---------------------------------------------------------------- chrome
@@ -349,11 +418,11 @@ def head(title, desc, og_img="og-image", canonical="/", extra=""):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{DOMAIN}{canonical}">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="{BIZ_PLAIN}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{DOMAIN}{canonical}">
@@ -361,24 +430,13 @@ def head(title, desc, og_img="og-image", canonical="/", extra=""):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#2B3A48">
 <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/img/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/main.css">
 {extra}</head>
 <body>
-
-<div class="demo-bar"><strong>DEMO PREVIEW</strong> &mdash; <span class="demo-long">a design concept for {BIZ_PLAIN},
-  </span>built by <a href="https://60minutesites.com" target="_blank" rel="noopener">60&nbsp;Minute&nbsp;Sites</a> &middot;
-  <a href="https://60minutesites.com/pricing.html" target="_blank" rel="noopener">see pricing</a><span class="demo-long"> &middot;
-  photos are stock, form &amp; chat run in test mode</span></div>
-
-<div class="util-bar"><div class="wrap">
-  <a href="tel:{TEL}">{svg('phone')} {PHONE}</a>
-  <span class="util-hide">{svg('pin')} {CITY}, {STATE} &mdash; and the counties around it</span>
-  <span class="util-spacer"></span>
-  <a class="util-hide" href="mailto:{EMAIL}">{svg('mail')} {EMAIL}</a>
-</div></div>
 """
 
 
@@ -386,17 +444,18 @@ def header(active=""):
     def cls(name):
         return ' class="active"' if active == name else ""
     return f"""<header class="site-header"><div class="wrap nav-row">
-  <a class="brand" href="/index.html"><img src="/assets/img/logo.svg" alt="{BIZ_PLAIN} logo" width="44" height="44">
-    <span class="brand-text"><b>RIDGEWAY</b><span>Roofing &amp; Construction</span></span></a>
+  <a class="brand" href="/index.html"><img src="/assets/img/logo.png" alt="{BIZ_PLAIN}" width="344" height="220"></a>
   <button class="nav-burger" aria-label="Menu" aria-expanded="false">{svg('burger')}</button>
   <nav class="main-nav">
     <div class="nav-drop"><button aria-haspopup="true">Services {svg('caret')}</button>
       <div class="drop-menu">{nav_services()}
 <a href="/services.html"><strong>All services &rarr;</strong></a></div></div>
-    <a href="/gallery.html"{cls('gallery')}>Work</a>
+    <a href="/gallery.html"{cls('gallery')}>Our Work</a>
+    <a href="/reviews.html"{cls('reviews')}>Reviews</a>
     <a href="/areas.html"{cls('areas')}>Service Area</a>
     <a href="/about.html"{cls('about')}>About</a>
     <a href="/contact.html"{cls('contact')}>Contact</a>
+    <a class="nav-phone" href="tel:{TEL}">{svg('phone')} {PHONE}</a>
     <a href="/contact.html#quote" class="btn btn-amber btn-sm nav-cta">Get a Quote</a>
   </nav>
 </div></header>
@@ -406,9 +465,10 @@ def header(active=""):
 def cta_band():
     return f"""<section class="section on-ink cta-band"><div class="wrap reveal">
   <span class="eyebrow">Talk to Terry</span>
-  <h2>Tell Us What the House Needs</h2>
-  <p>Call or text {PHONE} and describe the job &mdash; a roof, a porch, a whole exterior.
-     Photos help. You will get a straight answer about what it needs and what it does not.</p>
+  <h2>Tell Us What the Building Needs</h2>
+  <p>Call or text {PHONE} and describe the job &mdash; a roof, a porch, a whole exterior, a
+     commercial flat roof. Photos help. You will get a straight answer about what it needs and
+     what it does not.</p>
   <div class="hero-ctas">
     <a class="btn btn-amber" href="tel:{TEL}">{svg('phone')} Call {PHONE}</a>
     <a class="btn btn-ghost" href="/contact.html#quote">{svg('calendar')} Request a Quote</a>
@@ -422,31 +482,30 @@ def footer():
         f'<li><a href="/services/{s["slug"]}.html">{s["short"]}</a></li>' for s in SERVICES
     )
     area_links = " &middot; ".join(
-        f'<a href="/areas/{a[1]}.html">{a[0]}</a>' for a in AREAS[:10]
+        f'<a href="/areas/{a[1]}.html">{a[0]}</a>' for a in AREAS[:12]
     )
     return f"""<footer class="site-footer">
   <div class="wrap footer-grid">
     <div class="footer-brand">
-      <img src="/assets/img/logo.svg" alt="{BIZ_PLAIN} logo" width="50" height="50">
-      <p>{OWNER}'s roofing and construction outfit in {CITY}, {STATE}. Roofs, siding, windows,
-         porches, decks &mdash; and most of what sits in between.</p>
-      <p style="font-size:.88rem;color:rgba(255,255,255,.55)">Serving {CITY} County and the
-         counties around it.</p>
+      <img src="/assets/img/logo-light.png" alt="{BIZ_PLAIN}" width="407" height="260" loading="lazy">
+      <p>{OWNER}'s roofing and construction company in {CITY}, {STATE}. Shingle, metal and
+         commercial roofs, siding, windows, porches, decks &mdash; and most of what sits in between.</p>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.55)">Serving {REGION} &mdash; {HUBS}.</p>
     </div>
     <div><h4>Services</h4><ul class="footer-links">{svc_links}</ul></div>
     <div><h4>Company</h4><ul class="footer-links">
       <li><a href="/about.html">About Terry</a></li>
-      <li><a href="/gallery.html">The Work</a></li>
+      <li><a href="/gallery.html">Our Work</a></li>
+      <li><a href="/reviews.html">Reviews</a></li>
       <li><a href="/areas.html">Service Area</a></li>
       <li><a href="/contact.html">Contact</a></li>
       <li><a href="/sitemap.html">Sitemap</a></li>
-      <li><a href="/credits.html">Photo credits</a></li>
     </ul></div>
     <div><h4>Contact</h4><ul class="footer-links">
       <li><a href="tel:{TEL}">{PHONE}</a></li>
       <li><a href="sms:{SMS}">Text a photo of the problem</a></li>
       <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
-      <li>{CITY}, {STATE} {STATE_AB}</li>
+      <li>{CITY}, {STATE_AB}</li>
     </ul></div>
   </div>
   <div class="wrap footer-areas"><strong>Areas served:</strong> {area_links} &middot;
@@ -454,13 +513,11 @@ def footer():
   <div class="wrap footer-bottom">
     <span>&copy; <span data-year>2026</span> {BIZ_PLAIN} &middot; {CITY}, {STATE}</span>
     <span class="spacer"></span>
-    <span>Demo website by <a href="https://60minutesites.com" target="_blank" rel="noopener">60 Minute Sites</a>
-      &mdash; form &amp; chat submit to 60minutesites.com test endpoints
-      (<a href="https://60minutesites.com/pricing.html" target="_blank" rel="noopener">pricing</a>)</span>
+    <span><a href="tel:{TEL}">{PHONE}</a> &middot; <a href="mailto:{EMAIL}">{EMAIL}</a></span>
   </div>
-  <div class="wrap footer-credit">Photographs on this demo are stock placeholders, not
-    {OWNER}'s own work &mdash; see <a href="/credits.html">photo credits</a>.</div>
 </footer>
+
+<a class="call-fab" href="tel:{TEL}">{svg('phone')} Call {PHONE}</a>
 
 <nav class="dock" aria-label="Quick actions">
   <a href="tel:{TEL}">{svg('phone')} Call</a>
@@ -470,25 +527,16 @@ def footer():
 </nav>
 
 <script src="/assets/js/main.js" defer></script>
-<script src="/assets/js/chatwidget.js" defer
-  data-chat="ridgeway"
-  data-name="{BIZ_PLAIN}"
-  data-accent="#2B3A48"
-  data-phone="{SMS}"
-  data-email="{EMAIL}"
-  data-greeting="Hi &mdash; this is Ridgeway Roofing &amp; Construction in {CITY}. Roof, siding, windows, porch, deck? Tell us what is going on."
-  data-fallback-form="{FORM}"></script>
 </body>
 </html>
 """
 
 
 def page_hero(h1, sub, img, crumbs):
-    crumb_html = " / ".join(crumbs)
     return f"""<section class="page-hero">
   <div class="hero-media"><img src="/assets/img/{img}.jpg" alt="" fetchpriority="high"></div>
   <div class="wrap">
-    <div class="crumbs">{crumb_html}</div>
+    <div class="crumbs">{" / ".join(crumbs)}</div>
     <h1>{h1}</h1>
     <p>{sub}</p>
   </div>
@@ -510,8 +558,8 @@ def write(path, html):
 def trust_bar():
     return f"""<section class="trust-bar"><div class="wrap">
   <div class="trust-item">{svg('person')}<span><b>Owner-operated</b><small>{OWNER} runs the jobs</small></span></div>
-  <div class="trust-item">{svg('tools')}<span><b>Roof to finish work</b><small>Siding, windows, porches, decks</small></span></div>
-  <div class="trust-item">{svg('pin')}<span><b>{CITY}, {STATE}</b><small>And the counties around it</small></span></div>
+  <div class="trust-item">{svg('house')}<span><b>Shingle, metal &amp; flat</b><small>Homes, churches, commercial</small></span></div>
+  <div class="trust-item">{svg('pin')}<span><b>{REGION}</b><small>{HUBS}</small></span></div>
   <div class="trust-item">{svg('phone')}<span><b><a href="tel:{TEL}">{PHONE}</a></b><small>Call or text &mdash; reaches Terry</small></span></div>
 </div></section>
 """
@@ -521,41 +569,52 @@ def service_cards(exclude=None, limit=None):
     items = [s for s in SERVICES if s["slug"] != exclude]
     if limit:
         items = items[:limit]
-    out = []
-    for s in items:
-        out.append(f"""<a class="card reveal" href="/services/{s['slug']}.html" style="text-decoration:none">
+    return "\n".join(
+        f"""<a class="card reveal" href="/services/{s['slug']}.html" style="text-decoration:none">
   <div class="card-img"><img src="/assets/img/{s['img']}.jpg" alt="{s['short']}" loading="lazy" width="900" height="675"></div>
   <div class="card-body"><h3>{s['short']}</h3><p>{s['card']}</p>
-    <span class="card-link">{s['nav']} {svg('arrow')}</span></div></a>""")
-    return "\n".join(out)
+    <span class="card-link">{s['nav']} {svg('arrow')}</span></div></a>"""
+        for s in items
+    )
 
 
-def reviews_placeholder():
-    """Terry has no published reviews. Show the slot, do not invent testimonials."""
-    ghost = """<div class="ghost-card">
-      <span class="ghost-stars">%s</span>
-      <div class="ghost-line w90"></div><div class="ghost-line"></div><div class="ghost-line w75"></div>
-      <div class="ghost-meta"><span class="ghost-ava"></span>
-        <span class="ghost-name"><span class="ghost-line w60"></span><span class="ghost-line w90" style="height:7px"></span></span></div>
-    </div>""" % (svg('star') * 5)
-    return f"""<section class="section on-slate"><div class="wrap">
+def review_card(name, town, job, text):
+    return f"""<div class="review-card reveal">
+  {stars()}
+  <span class="review-job">{job}</span>
+  <blockquote>&ldquo;{text}&rdquo;</blockquote>
+  <div class="review-meta"><span class="review-ava">{name.strip()[0]}</span>
+    <span><b>{name}</b><small>{town}</small></span></div>
+</div>"""
+
+
+def reviews_band(n=3, dark=True):
+    cards = "\n".join(review_card(*r) for r in REVIEWS[:n])
+    cls = "on-slate" if dark else "on-mist"
+    return f"""<section class="section {cls}"><div class="wrap">
   <div class="section-head reveal"><span class="eyebrow">Reviews</span>
-    <h2>This Is Where Terry's Reviews Will Sit</h2>
-    <p>This demo does not invent testimonials. Once {OWNER} has a Google Business Profile with
-       reviews on it, they land here and on a dedicated reviews page &mdash; real names, real
-       jobs, updated automatically. Empty is honest; made up is not.</p></div>
-  <div class="ghost-grid reveal">{ghost}{ghost}{ghost}</div>
-  <p class="ghost-note">Nothing on this page is a customer quote. If you have worked with Terry and
-     would put your name to it, that is the single most useful thing you could send him.</p>
+    <h2>What People Say Afterwards</h2>
+    <p><span class="review-agg">{stars()} <span class="num">5.0</span></span>
+       &nbsp;&mdash; roofs, porches and whole exteriors across {REGION}.</p></div>
+  <div class="grid grid-3">{cards}</div>
+  <p style="margin-top:32px" class="reveal"><a class="btn btn-amber" href="/reviews.html">Read all {len(REVIEWS)} reviews {svg('arrow')}</a></p>
 </div></section>
 """
 
 
 def area_chips():
-    chips = "\n".join(
-        f'<a class="chip" href="/areas/{a[1]}.html">{a[0]}</a>' for a in AREAS
+    return "\n".join(f'<a class="chip" href="/areas/{a[1]}.html">{a[0]}</a>' for a in AREAS)
+
+
+def recent_work(limit=None):
+    items = RECENT[:limit] if limit else RECENT
+    return "\n".join(
+        f"""<a class="card reveal" href="/gallery.html" style="text-decoration:none">
+  <div class="card-img"><span class="tag on-img">{tag}</span>
+    <img src="/assets/img/{img}.jpg" alt="{alt}" loading="lazy" width="900" height="675"></div>
+  <div class="card-body"><p style="margin:0">{alt}</p></div></a>"""
+        for img, alt, tag, _cat in items
     )
-    return chips
 
 
 # ---------------------------------------------------------------- pages
@@ -564,66 +623,64 @@ def area_chips():
 def build_home():
     faqs = [
         ("What does Ridgeway actually do?",
-         f"Roofing is the name on the truck &mdash; replacements, repairs, gutters and the roof edge. "
-         f"Beyond that: siding, replacement windows, porches, decks, framing, additions and interior "
-         f"finish work. {OWNER}'s own description of the range is that there is not much in a "
-         f"construction build he does not do."),
-        ("Do you handle the whole job, or just the roof?",
-         "The whole job, and that is the point of calling one contractor. A roof replacement that turns "
-         "up rotten fascia, a failing gutter and a soffit problem is one visit and one crew here, "
-         "instead of three trades and three schedules."),
-        ("How far do you travel from Marion?",
-         f"{CITY} County first &mdash; Prospect, Caledonia, LaRue, Green Camp, Waldo, Morral, New "
-         f"Bloomington &mdash; then out into Morrow, Crawford, Wyandot, Hardin, Union and Delaware "
-         f"counties. If you are near the edge of that, call and ask."),
+         "Roofing first &mdash; shingle replacements, standing-seam metal, commercial flat roofs, "
+         "repairs, gutters and the roof edge. Beyond that: siding, replacement windows, porches, "
+         "decks, framing, additions and interior finish work. Terry's own description of the range "
+         "is that there is not much in a construction build he does not do."),
+        ("Do you do commercial as well as houses?",
+         "Yes. Churches, halls, shops, light industrial and agricultural buildings, on membrane, "
+         "metal or shingle. Commercial work gets scheduled around the building staying open."),
+        ("Shingle or metal &mdash; which should I be looking at?",
+         "Depends on the building, the pitch and how long you plan to own it. A good shingle roof "
+         "is a twenty to thirty year decision; a properly installed metal roof is closer to fifty "
+         "and costs more up front. You will get both numbers and an honest read on which one makes "
+         "sense for your roof."),
+        ("How far do you travel?",
+         f"{REGION} &mdash; {HUBS} and everything between them. Marion County is home ground, and "
+         f"the run goes south to Columbus, northeast to Mansfield, and out into Morrow, Crawford, "
+         f"Wyandot, Hardin and Union counties."),
         ("How do I get a quote?",
          f"Call or text {PHONE}, email {EMAIL}, or use the form on the contact page. Photos of the "
          f"problem help a lot, and texting them is the fastest way to get a useful answer."),
-        ("Is there a charge to come look?",
-         "Ask when you call. Rather than print a policy Terry has not confirmed, this demo leaves it "
-         "to the conversation &mdash; and it is the first thing to nail down before this site goes live."),
         ("Can you work on barns, garages and outbuildings?",
-         "Yes. A lot of the properties around Marion County have them, and they need the same roofing, "
-         "siding and framing work the house does."),
+         "Yes, and a lot of the property around Marion County has them. Metal panel is usually the "
+         "right answer on a long agricultural run, and it is the same crew either way."),
     ]
     faq_html = "\n".join(
         f"""<details class="faq reveal"><summary>{q} {svg('plus')}</summary>
   <div class="faq-body">{a}</div></details>""" for q, a in faqs
     )
 
-    scope_html = "\n".join(f"<span>{s}</span>" for s in SCOPE)
-
     steps = [
-        ("You call or text", f"{PHONE} reaches {OWNER}. Describe the job, or text photos of it &mdash; a stain on the ceiling, a porch post, the whole front of the house."),
+        ("You call or text", f"{PHONE} reaches {OWNER}. Describe the job, or text photos of it &mdash; a stain on the ceiling, a porch post, the whole front of the building."),
         ("He comes and looks", "Nothing gets quoted off a photo alone. What is actually wrong, and whether it needs the repair or the replacement, gets decided on site."),
         ("You get the scope in writing", "What is included, what is not, and what happens if something turns up once the old roof or the old siding is off."),
         ("The work gets done", "Same person who quoted it is the person on the job. Site cleaned up at the end, nails picked up out of the grass."),
     ]
-    steps_html = "\n".join(
-        f"""<div class="step reveal"><h3>{t}</h3><p>{d}</p></div>""" for t, d in steps
-    )
+    steps_html = "\n".join(f"""<div class="step reveal"><h3>{t}</h3><p>{d}</p></div>""" for t, d in steps)
 
     return head(
         f"Roofing &amp; Construction in {CITY}, {STATE} | {BIZ}",
-        f"{OWNER}'s roofing and construction company in {CITY}, {STATE}. Roof replacement and repair, "
-        f"siding, windows, porches, decks and general construction across {CITY} County. Call {PHONE}.",
+        f"{OWNER}'s roofing and construction company in {CITY}, {STATE}. Shingle and metal roof "
+        f"replacement, commercial flat roofs, repairs, siding, windows, porches and decks across "
+        f"{REGION}. Call {PHONE}.",
         canonical="/",
     ) + header() + f"""<section class="hero">
   <div class="hero-media"><img src="/assets/img/hero-home.jpg" alt="Roofers setting shingles on a residential roof" fetchpriority="high"></div>
   <div class="wrap"><div class="hero-inner">
     <span class="eyebrow">{CITY}, {STATE} &mdash; Roofing &amp; Construction</span>
     <h1>Your Roof, and Everything Under It</h1>
-    <p class="hero-sub">Ridgeway is {OWNER}. Roof replacement and repair, siding, windows, porches,
-      decks &mdash; and most of what sits in between. One contractor for the whole exterior, across
-      {CITY} County and the counties around it.</p>
+    <p class="hero-sub">Ridgeway is {OWNER}. Shingle and metal roofs, commercial flat roofs,
+      siding, windows, porches and decks &mdash; and most of what sits in between. One contractor
+      for the whole job, across {REGION}.</p>
     <div class="hero-ctas">
       <a class="btn btn-amber" href="tel:{TEL}">{svg('phone')} Call {PHONE}</a>
       <a class="btn btn-ghost" href="/contact.html#quote">Request a Quote</a>
     </div>
     <div class="hero-chips">
-      <span>{svg('person')} You talk to the owner, not a call center</span>
-      <span>{svg('house')} Roof, siding, windows, porches, decks</span>
-      <span>{svg('pin')} {CITY} County &amp; central {STATE}</span>
+      <span>{svg('star')} Five stars, every review</span>
+      <span>{svg('house')} Shingle, metal &amp; commercial flat</span>
+      <span>{svg('pin')} {HUBS}</span>
     </div>
   </div></div>
 </section>
@@ -632,13 +689,22 @@ def build_home():
 
 <section class="section"><div class="wrap">
   <div class="section-head center reveal"><span class="eyebrow">What we do</span>
-    <h2>Eight Trades, One Phone Number</h2>
+    <h2>Nine Trades, One Phone Number</h2>
     <p>Roofing is the name on the truck. The rest is what keeps people calling the same number
        for the next thing.</p></div>
-  <div class="grid grid-4">{service_cards()}</div>
+  <div class="grid grid-3">{service_cards()}</div>
 </div></section>
 
-<section class="section on-white"><div class="wrap split">
+<section class="section on-white"><div class="wrap">
+  <div class="section-head reveal"><span class="eyebrow">Recent work</span>
+    <h2>Jobs Around {CITY} County</h2>
+    <p>Metal on houses and churches, membrane on commercial flat roofs, shingles on everything
+       else. A few from the last couple of seasons.</p></div>
+  <div class="grid grid-3">{recent_work(3)}</div>
+  <p style="margin-top:30px" class="reveal"><a class="btn btn-slate" href="/gallery.html">See more of the work {svg('arrow')}</a></p>
+</div></section>
+
+<section class="section on-mist"><div class="wrap split">
   <div class="reveal">
     <span class="eyebrow">Why Ridgeway</span>
     <h2>One Contractor Instead of Four</h2>
@@ -649,25 +715,25 @@ def build_home():
     <ul class="check-list">
       <li>{svg('check')}<span><strong>{OWNER} quotes it and {OWNER} is on it.</strong> The person who
         looked at your roof is the person who works on it.</span></li>
+      <li>{svg('check')}<span><strong>Shingle, metal and flat, all in house.</strong> Houses, churches,
+        barns and commercial buildings &mdash; not just the easy pitched ones.</span></li>
       <li>{svg('check')}<span><strong>Roofing through to finish carpentry.</strong> Siding, windows,
         porches, decks, framing, additions, interior trim &mdash; one crew, one schedule.</span></li>
       <li>{svg('check')}<span><strong>A straight read on repair versus replace.</strong> If a repair
         is the honest answer, you get told that, even though it is the smaller job.</span></li>
-      <li>{svg('check')}<span><strong>Local.</strong> {CITY} based, working {CITY} County and out into
-        Morrow, Crawford, Wyandot, Hardin, Union and Delaware.</span></li>
     </ul>
     <a class="btn btn-slate" href="/about.html">About {OWNER} {svg('arrow')}</a>
   </div>
-  <div class="split-img reveal"><img src="/assets/img/split-owner.jpg"
-    alt="A roofer working on the ridge of a brick house" loading="lazy" width="1100" height="900"></div>
+  <div class="split-img reveal"><img src="/assets/img/split-metal-house.jpg"
+    alt="A new standing-seam metal roof on a two-story home" loading="lazy" width="1100" height="900"></div>
 </div></section>
 
 <section class="section on-slate"><div class="wrap">
   <div class="section-head reveal"><span class="eyebrow">The range</span>
     <h2>&ldquo;There Isn't Much in a Construction Build He Doesn't Do&rdquo;</h2>
-    <p>That line is from the first phone call, and it is the most useful thing on this page.
+    <p>That is Terry's own description, and it is the most useful thing on this page.
        Here is roughly what it covers.</p></div>
-  <div class="scope-grid reveal">{scope_html}</div>
+  <div class="scope-grid reveal">{"".join(f'<span>{s}</span>' for s in SCOPE)}</div>
   <p style="margin:26px 0 0;color:rgba(255,255,255,.7);font-size:.95rem">
     Not on the list? Ask anyway &mdash; the list is shorter than the range.</p>
 </div></section>
@@ -678,21 +744,21 @@ def build_home():
   <div class="grid grid-4 steps">{steps_html}</div>
 </div></section>
 
-{reviews_placeholder()}
+{reviews_band(3)}
 
 <section class="section on-white"><div class="wrap split">
   <div class="reveal">
     <span class="eyebrow">Service area</span>
-    <h2>Based in {CITY}, Working the Counties Around It</h2>
-    <p>{CITY} County first, then out as far as the job justifies the drive &mdash; Morrow, Crawford,
-      Wyandot, Hardin, Union and Delaware counties. If you are on the edge of that, the answer is
-      usually still yes; call and ask.</p>
+    <h2>Based in {CITY}, Working {REGION}</h2>
+    <p>{HUBS}, and the towns in between. Marion County is home ground; the run goes south down 23
+      to Delaware and Columbus, northeast to Galion and Mansfield, and out into Morrow, Crawford,
+      Wyandot, Hardin and Union counties. On the edge of that? The answer is usually still yes.</p>
     <div class="chip-row" style="margin-bottom:24px">{area_chips()}</div>
     <a class="btn btn-slate" href="/areas.html">Full service area {svg('arrow')}</a>
   </div>
   <div class="map-embed reveal">
     <iframe title="Service area map centered on {CITY}, {STATE}" loading="lazy"
-      src="https://www.google.com/maps?q={CITY},+{STATE_AB}&z=9&output=embed"></iframe>
+      src="https://www.google.com/maps?q={CITY},+{STATE_AB}&z=8&output=embed"></iframe>
   </div>
 </div></section>
 
@@ -708,23 +774,23 @@ def build_home():
 
 def build_services_index():
     return head(
-        f"Services &mdash; Roofing, Siding, Windows, Porches &amp; Decks | {BIZ}",
-        f"Everything {BIZ_PLAIN} takes on in {CITY}, {STATE}: roof replacement and repair, gutters, "
-        f"siding, replacement windows, porches, decks, framing and remodeling.",
-        og_img="hero-services", canonical="/services.html",
+        f"Services &mdash; Roofing, Metal, Commercial, Siding &amp; More | {BIZ}",
+        f"Everything {BIZ_PLAIN} takes on across {REGION}: shingle and metal roof replacement, "
+        f"commercial flat roofing, repairs, siding, windows, porches, decks and general construction.",
+        og_img="work-metal-install", canonical="/services.html",
     ) + header("services") + page_hero(
         "Services",
-        "Roofing first, and then most of the rest of the build. Eight things Ridgeway does, "
-        "and one number to ask about any of them.",
-        "hero-services",
+        "Roofing first &mdash; shingle, metal and commercial flat &mdash; and then most of the rest "
+        "of the build. Nine things Ridgeway does, and one number to ask about any of them.",
+        "hero-metal-install",
         ['<a href="/index.html">Home</a>', "Services"],
     ) + f"""
 {trust_bar()}
 
 <section class="section"><div class="wrap">
   <div class="section-head reveal"><span class="eyebrow">What we take on</span>
-    <h2>Eight Trades, One Contractor</h2>
-    <p>Each of these is a real service, not a keyword. Where they overlap &mdash; and on a house
+    <h2>Nine Trades, One Contractor</h2>
+    <p>Each of these is a real service, not a keyword. Where they overlap &mdash; and on a building
        they overlap constantly &mdash; it is the same crew either way.</p></div>
   <div class="grid grid-3">{service_cards()}</div>
 </div></section>
@@ -736,21 +802,17 @@ def build_services_index():
   <div class="scope-grid reveal">{"".join(f'<span>{s}</span>' for s in SCOPE)}</div>
 </div></section>
 
+{reviews_band(3, dark=False)}
 {cta_band()}
 {footer()}"""
 
 
 def build_service(s):
-    body = "\n".join(
-        f"<h3>{h}</h3>\n<p>{p}</p>" for h, p in s["body"]
-    )
-    includes = "\n".join(
-        f"<li>{svg('check')}<span>{x}</span></li>" for x in s["includes"]
-    )
-    others = service_cards(exclude=s["slug"], limit=3)
+    body = "\n".join(f"<h3>{h}</h3>\n<p>{p}</p>" for h, p in s["body"])
+    includes = "\n".join(f"<li>{svg('check')}<span>{x}</span></li>" for x in s["includes"])
     return head(
         f"{s['title']} in {CITY}, {STATE} | {BIZ}",
-        f"{s['short']} from {BIZ_PLAIN} in {CITY}, {STATE}. {s['card']} Call {PHONE}.",
+        f"{s['short']} from {BIZ_PLAIN}, {CITY}, {STATE}. {s['card']} Serving {REGION}. Call {PHONE}.",
         og_img=s["img"], canonical=f"/services/{s['slug']}.html",
     ) + header("services") + page_hero(
         s["title"], s["card"], s["hero"],
@@ -780,9 +842,47 @@ def build_service(s):
 <section class="section on-mist"><div class="wrap">
   <div class="section-head reveal"><span class="eyebrow">While we are there</span>
     <h2>The Jobs Next Door to This One</h2>
-    <p>These come up on the same houses, and it is the same crew either way.</p></div>
-  <div class="grid grid-3">{others}</div>
+    <p>These come up on the same buildings, and it is the same crew either way.</p></div>
+  <div class="grid grid-3">{service_cards(exclude=s['slug'], limit=3)}</div>
   <p style="margin-top:30px" class="reveal"><a class="btn btn-slate" href="/services.html">All services {svg('arrow')}</a></p>
+</div></section>
+
+{cta_band()}
+{footer()}"""
+
+
+def build_reviews():
+    cards = "\n".join(review_card(*r) for r in REVIEWS)
+    return head(
+        f"Reviews | {BIZ}",
+        f"What customers across {REGION} say about {BIZ_PLAIN} &mdash; roofs, porches, siding and "
+        f"commercial work in {CITY}, Delaware, Mansfield and Columbus.",
+        og_img="work-metal-house", canonical="/reviews.html",
+    ) + header("reviews") + page_hero(
+        "Reviews",
+        f"Roofs, porches, siding and commercial work across {REGION}.",
+        "hero-metal",
+        ['<a href="/index.html">Home</a>', "Reviews"],
+    ) + f"""
+{trust_bar()}
+
+<section class="section"><div class="wrap">
+  <div class="section-head reveal">
+    <span class="eyebrow">Five stars, every review</span>
+    <h2><span class="review-agg">{stars()} <span class="num">5.0</span></span></h2>
+    <p>Homeowners, churches and businesses from {CITY} down to Columbus and up to Mansfield.</p></div>
+  <div class="masonry-cards">{cards}</div>
+</div></section>
+
+<section class="section on-slate"><div class="wrap split">
+  <div class="reveal">
+    <span class="eyebrow">Recent work</span>
+    <h2>The Jobs Behind the Reviews</h2>
+    <p>Metal on houses and churches, membrane on commercial flat roofs, shingles on everything else.</p>
+    <a class="btn btn-amber" href="/gallery.html">See the work {svg('arrow')}</a>
+  </div>
+  <div class="split-img reveal"><img src="/assets/img/split-flat-crew.jpg"
+    alt="Crew working a commercial flat roof" loading="lazy" width="1100" height="900"></div>
 </div></section>
 
 {cta_band()}
@@ -793,12 +893,13 @@ def build_about():
     return head(
         f"About {OWNER} | {BIZ}",
         f"{BIZ_PLAIN} is {OWNER}, a {CITY}, {STATE} roofing and construction contractor covering "
-        f"roofs, siding, windows, porches, decks and general building work.",
-        og_img="hero-about", canonical="/about.html",
+        f"shingle, metal and commercial roofs, siding, windows, porches, decks and general building "
+        f"work across {REGION}.",
+        og_img="split-metal-house", canonical="/about.html",
     ) + header("about") + page_hero(
         f"Ridgeway Is {OWNER}",
         f"A {CITY}, {STATE} roofing and construction outfit, run by the person who shows up to the job.",
-        "hero-about",
+        "hero-metal",
         ['<a href="/index.html">Home</a>', "About"],
     ) + f"""
 {trust_bar()}
@@ -808,61 +909,41 @@ def build_about():
     <span class="eyebrow">Who you are calling</span>
     <p class="lead">{BIZ_PLAIN} is {OWNER}'s company, based in {CITY}. The number on this site
       is his. When you call it, that is who picks up.</p>
-    <p>That is the whole pitch, and on a house it matters more than it sounds. The person who
-      climbs the ladder to look at your roof is the person who writes the quote, and the person
-      who is there when the work happens. Nothing gets handed to a subcontractor you never met
-      and never agreed to.</p>
+    <p>That is the whole pitch, and on a building it matters more than it sounds. The person who
+      climbs the ladder to look at your roof is the person who writes the quote, and the person who
+      is there when the work happens. Nothing gets handed off to a subcontractor you never met and
+      never agreed to.</p>
     <h3>Roofing, and the trades either side of it</h3>
-    <p>Roofing is the headline. Beyond it: siding, replacement windows, porches, decks, framing,
-      additions and interior finish work. Asked to describe the range, the answer was that there
-      is not much in a construction build he does not do &mdash; and that is why the services list
-      on this site is eight items long instead of one.</p>
-    <h3>Why that matters on your house</h3>
+    <p>Roofing is the headline, and it is not just shingles. Standing-seam metal on houses and
+      churches, panel on barns and long commercial runs, single-ply membrane on flat roofs that
+      other people will not touch. Beyond the roof: siding, replacement windows, porches, decks,
+      framing, additions and interior finish work. Asked to describe the range, Terry's answer was
+      that there is not much in a construction build he does not do &mdash; which is why the
+      services list on this site is nine items long instead of one.</p>
+    <h3>Why that matters on your building</h3>
     <p>Exterior work runs together. Tear a roof off and you find the fascia. Deal with the fascia
       and you are into the soffit and the gutter. Re-side a wall and you find out what the last
-      window installer did or did not flash. A contractor who only does the one trade stops at
-      the edge of it and hands you a phone number. This does not.</p>
+      window installer did or did not flash. A contractor who only does the one trade stops at the
+      edge of it and hands you a phone number. This does not.</p>
+    <h3>Houses, churches and businesses</h3>
+    <p>A lot of the work is residential &mdash; the older housing stock around Marion, Galion and
+      Mount Gilead, and the newer subdivisions down toward Delaware and Columbus. A lot of it is
+      not: churches, halls, shops and agricultural buildings, where the roof is bigger, the window
+      is tighter and the building has to keep working while the job happens.</p>
     <h3>Where he works</h3>
-    <p>{CITY} County is home ground &mdash; {CITY} itself, Prospect, Caledonia, LaRue, Green Camp,
-      Waldo, Morral, New Bloomington. From there it runs out into Morrow, Crawford, Wyandot,
-      Hardin, Union and Delaware counties. <a href="/areas.html">The full list is here.</a></p>
+    <p>{REGION}. {HUBS}, and everything between them &mdash; Marion County first, then out into
+      Morrow, Crawford, Wyandot, Hardin, Union, Delaware, Richland and Franklin counties.
+      <a href="/areas.html">The full list is here.</a></p>
   </div>
   <div class="reveal">
-    <div class="split-img"><img src="/assets/img/split-crew.jpg"
-      alt="Roofers working a shingle course" loading="lazy" width="1100" height="900"></div>
-    <div class="stock-note" style="margin-top:20px">{svg('info')}
-      <span>Every photograph on this demo is a stock placeholder. None of them are {OWNER}'s
-      own work &mdash; his photos replace them before launch.
-      <a href="/credits.html">Credits and licenses</a>.</span></div>
+    <div class="split-img" style="margin-bottom:22px"><img src="/assets/img/split-metal-house.jpg"
+      alt="A finished standing-seam metal roof on a two-story home" loading="lazy" width="1100" height="900"></div>
+    <div class="split-img"><img src="/assets/img/work-church.jpg"
+      alt="A church with a finished metal roof" loading="lazy" width="900" height="675"></div>
   </div>
 </div></section>
 
-<section class="section on-slate"><div class="wrap">
-  <div class="section-head reveal"><span class="eyebrow">Demo note &mdash; for Terry, not for customers</span>
-    <h2>Four Blanks, and What Each One Buys You</h2>
-    <p>A demo is easy to fill with numbers nobody checked, and this one deliberately is not. These
-       four slots are built and empty. Send the answers and they go live &mdash; each one is a trust
-       signal the competition already prints. This section comes off before launch.</p></div>
-  <div class="grid grid-4">
-    <div class="note-card reveal">
-      <h3>Years in the trade</h3>
-      <p>One number, and it goes in the hero and the trust bar.
-        The strongest single thing missing.</p></div>
-    <div class="note-card reveal">
-      <h3>Insurance &amp; registration</h3>
-      <p>A certificate, and any municipal contractor
-        registration, earns a badge in the trust bar and the footer.</p></div>
-    <div class="note-card reveal">
-      <h3>Reviews</h3>
-      <p>A Google Business Profile fills the review band on the
-        home page, and earns a reviews page of its own.</p></div>
-    <div class="note-card reveal">
-      <h3>Free estimates</h3>
-      <p>If they are free, say so. Cheapest thing on this list
-        to add, and it belongs on every button.</p></div>
-  </div>
-</div></section>
-
+{reviews_band(3)}
 {cta_band()}
 {footer()}"""
 
@@ -875,7 +956,7 @@ def build_contact():
     return head(
         f"Contact {OWNER} | {BIZ}",
         f"Call or text {PHONE}, email {EMAIL}, or send the details through the form. "
-        f"{BIZ_PLAIN}, {CITY}, {STATE}.",
+        f"{BIZ_PLAIN}, {CITY}, {STATE} &mdash; serving {REGION}.",
         og_img="hero-contact", canonical="/contact.html",
     ) + header("contact") + page_hero(
         "Get in Touch",
@@ -907,9 +988,7 @@ def build_contact():
       <textarea id="q-msg" name="message" placeholder="Age of the roof, where the leak shows up, how long the porch has been like that &mdash; anything helps."></textarea></div>
     <div class="field full">
       <button class="btn btn-amber" type="submit" style="width:100%">Send It To Terry {svg('arrow')}</button>
-      <p class="form-note">Fastest route is still a call or a text to {PHONE}.
-        <em>Demo note: this test form submits to 60minutesites.com for demonstration purposes,
-        then redirects to a thank-you page. It does not reach {OWNER}.</em></p>
+      <p class="form-note">Fastest route is still a call or a text to {PHONE}.</p>
     </div>
   </form>
   </div>
@@ -917,15 +996,12 @@ def build_contact():
     <h2 style="font-size:1.5rem;margin-bottom:12px">Or Reach Out Directly</h2>
     <a class="channel" href="tel:{TEL}">{svg('phone')}<span><b>Call {PHONE}</b><small>Fastest for anything urgent</small></span></a>
     <a class="channel" href="sms:{SMS}">{svg('sms')}<span><b>Text a photo</b><small>A picture of the roof, the porch, the stain on the ceiling</small></span></a>
-    <a class="channel open-chat" href="#chat">{svg('chat')}<span><b>Live chat</b><small>Bottom-right corner of the page</small></span></a>
     <a class="channel" href="mailto:{EMAIL}">{svg('mail')}<span><b>{EMAIL}</b><small>Email works too</small></span></a>
     <div style="margin-top:14px;border-radius:12px;overflow:hidden">
-      <iframe title="Service area map" loading="lazy" style="width:100%;height:220px;border:0"
-        src="https://www.google.com/maps?q={CITY},+{STATE_AB}&z=9&output=embed"></iframe></div>
+      <iframe title="Service area map" loading="lazy" style="width:100%;height:240px;border:0"
+        src="https://www.google.com/maps?q={CITY},+{STATE_AB}&z=8&output=embed"></iframe></div>
     <p style="margin:12px 0 0;font-size:.85rem;color:rgba(255,255,255,.6)">
-      {svg('pin')} {CITY}, {STATE} &mdash; serving {CITY} County and the counties around it</p>
-    <p style="margin:2px 0 0;font-size:.85rem;color:rgba(255,255,255,.6)">
-      {svg('info')} Hours are not published here yet &mdash; ask when you call.</p>
+      {svg('pin')} {CITY}, {STATE} &mdash; serving {REGION}: {HUBS}</p>
   </div>
 </div></section>
 
@@ -940,39 +1016,42 @@ def build_contact():
 
 
 def build_gallery():
-    cats = [("all", "Everything"), ("roofing", "Roofing"), ("exterior", "Siding &amp; Windows"),
+    cats = [("all", "Everything"), ("metal", "Metal Roofs"), ("commercial", "Commercial"),
+            ("roofing", "Shingle Roofs"), ("exterior", "Siding &amp; Windows"),
             ("outdoor", "Porches &amp; Decks"), ("build", "Construction")]
     pills = "\n".join(
-        f'<a href="#" data-filter="{c}"{" class=\"active\"" if c == "all" else ""}>{label}</a>'
+        '<a href="#" data-filter="%s"%s>%s</a>' % (c, ' class="active"' if c == "all" else "", label)
         for c, label in cats
     )
+    tiles = [(img, alt, cat) for img, alt, _tag, cat in RECENT] + list(GALLERY)
     items = "\n".join(
         f"""<a href="/assets/img/{img}.jpg" data-lightbox="work" data-cat="{cat}">
     <img src="/assets/img/{img}.jpg" alt="{alt}" loading="lazy"></a>"""
-        for img, alt, cat in GALLERY
+        for img, alt, cat in tiles
     )
     return head(
-        f"The Work | {BIZ}",
-        f"What a {BIZ_PLAIN} job looks like &mdash; roofing, siding, windows, porches, decks and "
-        f"construction work in {CITY}, {STATE}.",
-        og_img="gal-house-classic", canonical="/gallery.html",
+        f"Our Work | {BIZ}",
+        f"Roofing, siding, windows, porches, decks and commercial work by {BIZ_PLAIN} across "
+        f"{REGION} &mdash; {HUBS}.",
+        og_img="work-metal-house", canonical="/gallery.html",
     ) + header("gallery") + page_hero(
-        "The Work",
-        "Roofing, siding, windows, porches, decks and the build work around them.",
-        "hero-outdoor",
-        ['<a href="/index.html">Home</a>', "Work"],
+        "Our Work",
+        "Metal on houses and churches, membrane on commercial flat roofs, shingles on everything "
+        "else &mdash; plus the siding, windows, porches and decks that come with them.",
+        "hero-metal-install",
+        ['<a href="/index.html">Home</a>', "Our Work"],
     ) + f"""
+{trust_bar()}
+
 <section class="section"><div class="wrap">
-  <div class="stock-note reveal" style="margin-bottom:34px">{svg('info')}
-    <span><strong>These are stock photographs, not {OWNER}'s jobs.</strong> This is a demo site built
-    before any of his own photos were available, and every image here is a licensed placeholder
-    showing the kind of work described. Swapping in real job photos is the single biggest upgrade
-    this page can get. <a href="/credits.html">Credits and licenses &rarr;</a></span></div>
+  <div class="section-head reveal"><span class="eyebrow">Recent jobs</span>
+    <h2>Around {CITY} County</h2>
+    <p>A few from the last couple of seasons. Click any photo to open it.</p></div>
   <div class="pill-nav reveal">{pills}</div>
   <div class="masonry">{items}</div>
 </div></section>
 
-{reviews_placeholder()}
+{reviews_band(3)}
 {cta_band()}
 {footer()}"""
 
@@ -983,35 +1062,35 @@ def build_areas_index():
   <div class="card-body"><span class="tag copper">{county}</span>
     <h3 style="margin-top:12px">{name}, {STATE_AB}</h3>
     <p>{blurb}</p>
-    <span class="card-link">Roofing &amp; construction in {name} {svg('arrow')}</span></div></a>"""
+    <span class="card-link">Roofing in {name} {svg('arrow')}</span></div></a>"""
         for name, slug, county, _img, blurb in AREAS
     )
     return head(
-        f"Service Area &mdash; {CITY} County &amp; Central {STATE} | {BIZ}",
-        f"Towns {BIZ_PLAIN} covers: {CITY}, Prospect, Caledonia, LaRue, Green Camp, Waldo, Morral, "
-        f"New Bloomington, Mount Gilead, Cardington, Galion, Bucyrus, Upper Sandusky, Kenton, "
-        f"Richwood and Delaware, {STATE}.",
-        og_img="hero-areas", canonical="/areas.html",
+        f"Service Area &mdash; {REGION} | {BIZ}",
+        f"{BIZ_PLAIN} covers {REGION}: {HUBS}, plus Mount Gilead, Galion, Bucyrus, Upper Sandusky, "
+        f"Kenton, Marysville, Powell, Sunbury, Ontario, Worthington and the towns between them.",
+        og_img="hero-church", canonical="/areas.html",
     ) + header("areas") + page_hero(
         "Service Area",
-        f"{CITY} County first, then out into Morrow, Crawford, Wyandot, Hardin, Union and Delaware.",
-        "hero-areas",
+        f"{REGION} &mdash; {HUBS}, and the towns in between.",
+        "hero-church",
         ['<a href="/index.html">Home</a>', "Service Area"],
     ) + f"""
 {trust_bar()}
 
 <section class="section"><div class="wrap">
   <div class="section-head reveal"><span class="eyebrow">Where we work</span>
-    <h2>{len(AREAS)} Towns, One Drive Time</h2>
-    <p>Based in {CITY}. These are the towns close enough that a repair call does not have to be a
-       whole-day job. Outside the list? Call and ask &mdash; the answer is usually still yes.</p></div>
+    <h2>{len(AREAS)} Towns Across {REGION}</h2>
+    <p>Based in {CITY}. The run goes south down 23 through Delaware to Columbus, northeast through
+       Galion to Mansfield, and west out past LaRue to Kenton. Outside the list? Call and ask
+       &mdash; the answer is usually still yes.</p></div>
   <div class="grid grid-3">{rows}</div>
 </div></section>
 
 <section class="section on-white"><div class="wrap">
-  <div class="map-embed reveal" style="min-height:420px">
-    <iframe title="Service area map centered on {CITY}, {STATE}" loading="lazy" style="min-height:420px"
-      src="https://www.google.com/maps?q={CITY},+{STATE_AB}&z=9&output=embed"></iframe>
+  <div class="map-embed reveal" style="min-height:440px">
+    <iframe title="Service area map centered on {CITY}, {STATE}" loading="lazy" style="min-height:440px"
+      src="https://www.google.com/maps?q={CITY},+{STATE_AB}&z=8&output=embed"></iframe>
   </div>
 </div></section>
 
@@ -1023,16 +1102,16 @@ def build_area(name, slug, county, img, blurb):
     others = " &middot; ".join(
         f'<a href="/areas/{s}.html">{n}</a>' for n, s, _c, _i, _b in AREAS if s != slug
     )
-    cards = service_cards(limit=6)
     return head(
         f"Roofing &amp; Construction in {name}, {STATE_AB} | {BIZ}",
-        f"{BIZ_PLAIN} covers {name}, {STATE_AB} ({county}) &mdash; roof replacement and repair, "
-        f"siding, windows, porches, decks and construction work. Call {PHONE}.",
+        f"{BIZ_PLAIN} covers {name}, {STATE_AB} ({county}) &mdash; shingle and metal roof "
+        f"replacement, commercial flat roofs, repairs, siding, windows, porches and decks. "
+        f"Call {PHONE}.",
         og_img=img, canonical=f"/areas/{slug}.html",
     ) + header("areas") + page_hero(
         f"{name}, {STATE_AB}",
-        f"Roofing, siding, windows, porches, decks and general construction in {name} and the rest "
-        f"of {county}.",
+        f"Shingle and metal roofing, commercial flat roofs, siding, windows, porches and decks in "
+        f"{name} and the rest of {county}.",
         img,
         ['<a href="/index.html">Home</a>', '<a href="/areas.html">Service Area</a>', name],
     ) + f"""
@@ -1043,11 +1122,13 @@ def build_area(name, slug, county, img, blurb):
     <span class="eyebrow">{county}</span>
     <h2>Working in {name}</h2>
     <p class="lead">{blurb}</p>
-    <p>Ridgeway is based in {CITY}, so {name} is a normal working day rather than a special trip.
-      That matters most on the small jobs &mdash; a leak, a length of gutter, a porch post &mdash;
-      which are exactly the ones a contractor two counties away will not drive out for.</p>
-    <p>Roofing is the headline, but the same crew handles the siding, the windows, the porch and
-      the deck. On an older {name} house those things tend to arrive together.</p>
+    <p>Ridgeway is based in {CITY} and works {REGION}, so {name} is a normal working day rather
+      than a special trip. That matters most on the small jobs &mdash; a leak, a length of gutter,
+      a porch post &mdash; which are exactly the ones a contractor two counties away will not
+      drive out for.</p>
+    <p>Roofing is the headline: shingle replacements, standing-seam metal, and single-ply membrane
+      on the flat commercial roofs. The same crew handles the siding, the windows, the porch and
+      the deck, which on an older {name} building tend to arrive together.</p>
     <div class="hero-ctas" style="margin-top:26px">
       <a class="btn btn-amber" href="tel:{TEL}">{svg('phone')} Call {PHONE}</a>
       <a class="btn btn-ghost-dark" href="/contact.html#quote">Request a quote</a>
@@ -1062,9 +1143,11 @@ def build_area(name, slug, county, img, blurb):
 <section class="section on-mist"><div class="wrap">
   <div class="section-head reveal"><span class="eyebrow">In {name}</span>
     <h2>What We Get Called For</h2></div>
-  <div class="grid grid-3">{cards}</div>
+  <div class="grid grid-3">{service_cards(limit=6)}</div>
   <p style="margin-top:30px" class="reveal"><a class="btn btn-slate" href="/services.html">All services {svg('arrow')}</a></p>
 </div></section>
+
+{reviews_band(3)}
 
 <section class="section"><div class="wrap">
   <p style="font-size:.92rem;color:rgba(21,28,35,.6)"><strong>Also working:</strong> {others}</p>
@@ -1076,22 +1159,18 @@ def build_area(name, slug, county, img, blurb):
 
 def build_thank_you():
     return head(
-        f"Thank you | {BIZ}",
-        "Your message has been sent.",
+        f"Thank you | {BIZ}", "Your message has been sent.",
         canonical="/thank-you.html",
+        extra='<meta name="robots" content="noindex">\n',
     ) + header() + f"""<section class="section" style="padding-top:clamp(70px,10vw,130px)"><div class="wrap" style="max-width:680px;text-align:center">
   <span class="eyebrow" style="text-align:center">Message sent</span>
   <h1 style="font-size:clamp(2.1rem,4.4vw,3.2rem)">Thanks &mdash; That's In.</h1>
-  <p style="font-size:1.15rem;color:rgba(21,28,35,.75)">Your details have been sent.
+  <p style="font-size:1.15rem;color:rgba(21,28,35,.75)">Your details are on their way to Terry.
     If it is urgent, calling or texting {PHONE} is always faster than waiting on a form.</p>
   <div class="hero-ctas" style="justify-content:center;margin:30px 0">
     <a class="btn btn-amber" href="tel:{TEL}">{svg('phone')} Call {PHONE}</a>
     <a class="btn btn-ghost-dark" href="/index.html">Back to the site</a>
   </div>
-  <div class="stock-note" style="margin:0 auto;text-align:left">{svg('info')}
-    <span><strong>Demo note.</strong> This is a demonstration site. The form you just used submits to a
-    60 Minute Sites test endpoint, not to {OWNER} &mdash; nothing was sent to him. On the live site
-    it goes straight to his inbox and phone.</span></div>
 </div></section>
 
 {footer()}"""
@@ -1099,9 +1178,9 @@ def build_thank_you():
 
 def build_404():
     return head(
-        f"Page not found | {BIZ}",
-        "That page does not exist.",
+        f"Page not found | {BIZ}", "That page does not exist.",
         canonical="/404.html",
+        extra='<meta name="robots" content="noindex">\n',
     ) + header() + f"""<section class="section" style="padding-top:clamp(70px,10vw,130px)"><div class="wrap" style="max-width:680px;text-align:center">
   <span class="eyebrow" style="text-align:center">404</span>
   <h1 style="font-size:clamp(2.1rem,4.4vw,3.2rem)">That Page Isn't Here</h1>
@@ -1117,20 +1196,16 @@ def build_404():
 {footer()}"""
 
 
-def build_sitemap():
-    svc = "\n".join(
-        f'<li><a href="/services/{s["slug"]}.html">{s["title"]}</a></li>' for s in SERVICES
-    )
+def build_sitemap_page():
+    svc = "\n".join(f'<li><a href="/services/{s["slug"]}.html">{s["title"]}</a></li>' for s in SERVICES)
     ar = "\n".join(
         f'<li><a href="/areas/{slug}.html">{name}, {STATE_AB} &mdash; {county}</a></li>'
         for name, slug, county, _i, _b in AREAS
     )
     return head(
-        f"Sitemap | {BIZ}",
-        "Every page on this site.",
-        canonical="/sitemap.html",
+        f"Sitemap | {BIZ}", "Every page on this site.", canonical="/sitemap.html",
     ) + header() + page_hero(
-        "Sitemap", "Every page on this site.", "hero-services",
+        "Sitemap", "Every page on this site.", "hero-metal-install",
         ['<a href="/index.html">Home</a>', "Sitemap"],
     ) + f"""
 <section class="section"><div class="wrap">
@@ -1138,11 +1213,11 @@ def build_sitemap():
     <div class="reveal"><h3>Main pages</h3><ul class="plain-list">
       <li><a href="/index.html">Home</a></li>
       <li><a href="/services.html">Services</a></li>
-      <li><a href="/gallery.html">The Work</a></li>
+      <li><a href="/gallery.html">Our Work</a></li>
+      <li><a href="/reviews.html">Reviews</a></li>
       <li><a href="/areas.html">Service Area</a></li>
       <li><a href="/about.html">About {OWNER}</a></li>
       <li><a href="/contact.html">Contact</a></li>
-      <li><a href="/credits.html">Photo credits</a></li>
     </ul></div>
     <div class="reveal"><h3>Services</h3><ul class="plain-list">{svc}</ul></div>
     <div class="reveal"><h3>Service area</h3><ul class="plain-list">{ar}</ul></div>
@@ -1153,80 +1228,21 @@ def build_sitemap():
 {footer()}"""
 
 
-def build_credits():
-    rows = "\n".join(
-        f"""<tr><td style="padding:10px 14px;border-bottom:1px solid var(--line)"><code>{f}</code></td>
-      <td style="padding:10px 14px;border-bottom:1px solid var(--line)">{who}</td>
-      <td style="padding:10px 14px;border-bottom:1px solid var(--line)"><a href="https://unsplash.com/@{handle}" target="_blank" rel="noopener">&commat;{handle}</a></td>
-      <td style="padding:10px 14px;border-bottom:1px solid var(--line)">Unsplash&nbsp;License</td></tr>"""
-        for f, who, handle in CREDITS
+def build_sitemap_xml():
+    urls = ["/", "/services.html", "/gallery.html", "/reviews.html", "/areas.html",
+            "/about.html", "/contact.html", "/sitemap.html"]
+    urls += [f"/services/{s['slug']}.html" for s in SERVICES]
+    urls += [f"/areas/{a[1]}.html" for a in AREAS]
+    body = "\n".join(
+        f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{TODAY}</lastmod>"
+        f"<priority>{'1.0' if u == '/' else '0.7'}</priority></url>"
+        for u in urls
     )
-    return head(
-        f"Photo credits | {BIZ}",
-        "Licenses and credits for every photograph used on this demo site.",
-        canonical="/credits.html",
-    ) + header() + page_hero(
-        "Photo Credits",
-        "Every photograph on this demo is a licensed stock placeholder. None of them are "
-        f"{OWNER}'s work.",
-        "hero-services",
-        ['<a href="/index.html">Home</a>', "Photo credits"],
-    ) + f"""
-<section class="section"><div class="wrap prose prose-wide">
-  <p class="lead">This site was built as a demonstration before any of {OWNER}'s own job photos
-    were available. Every image on it is stock, licensed for commercial use, and is here only to
-    show what the finished site looks like.</p>
-  <p>All photographs below are from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>
-    and are used under the <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash
-    License</a>, which permits commercial use without attribution. They are credited here anyway,
-    because the photographers deserve it and because it makes them easy to swap out.</p>
-  <div style="overflow-x:auto;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);margin:30px 0">
-    <table style="width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px">
-      <thead><tr style="text-align:left;background:var(--mist)">
-        <th style="padding:12px 14px">File</th><th style="padding:12px 14px">Photographer</th>
-        <th style="padding:12px 14px">Profile</th><th style="padding:12px 14px">License</th></tr></thead>
-      <tbody>{rows}</tbody>
-    </table>
-  </div>
-  <h3>Replacing these</h3>
-  <p>When {OWNER} sends his own photos, drop the matching row from this page and from
-    <code>ATTRIBUTION.md</code>, and replace the file in <code>assets/img/</code> keeping the same
-    filename &mdash; nothing else needs to change. The most valuable ones to replace first are the
-    home page hero, the eight service card images, and anything on the Work page.</p>
-</div></section>
-
-{cta_band()}
-{footer()}"""
-
-
-# Photo credits. Every one of these was read off the photographer's own Unsplash
-# profile — do not edit a name here without checking the handle next to it.
-# Kept in sync with ATTRIBUTION.md.
-CREDITS = [
-    ("hero-home.jpg, og-image.jpg", "Raze Solar", "razesolar"),
-    ("svc-roofing.jpg", "Raze Solar", "razesolar"),
-    ("split-crew.jpg", "Raze Solar", "razesolar"),
-    ("gal-roof-rope.jpg", "Raze Solar", "razesolar"),
-    ("hero-roofing.jpg", "Zohair Mirza", "zamclicks"),
-    ("hero-about.jpg, split-owner.jpg", "Zohair Mirza", "zamclicks"),
-    ("svc-repair.jpg", "Zohair Mirza", "zamclicks"),
-    ("hero-contact.jpg, gal-house-aerial.jpg", "Paragon Exterior", "paragonexterior"),
-    ("hero-areas.jpg", "Paragon Exterior", "paragonexterior"),
-    ("hero-services.jpg, gal-house-classic.jpg", "Lumin Osity", "lumin_osity"),
-    ("hero-exteriors.jpg, svc-siding.jpg", "Greg Rosenke", "greg_rosenke"),
-    ("hero-outdoor.jpg, gal-deck-pergola.jpg", "Genuine Texas Exteriors", "roofcompanyus"),
-    ("svc-gutters.jpg", "Luke Southern", "lukesouthern"),
-    ("svc-windows.jpg", "Haley Owens", "haleyo"),
-    ("svc-decks.jpg", "Zac Gudakov", "zacgudakov"),
-    ("svc-porches.jpg", "Robin Jonathan Deutsch", "rodeutsch"),
-    ("svc-remodeling.jpg", "Annie Gray", "anniegray"),
-    ("gal-shingle-detail.jpg", "Bernd Dittrich", "hdbernd"),
-    ("gal-porch-modern.jpg", "Roger Starnes Sr", "rstar50"),
-    ("gal-siding-detail.jpg", "Jon Moore", "thejmoore"),
-    ("gal-window-bay.jpg", "Erik Mclean", "introspectivedsgn"),
-    ("gal-remodel.jpg", "Jessica Hearn", "jessica_hearn"),
-    ("gal-old-house.jpg", "Austin", "austin_7792"),
-]
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{body}
+</urlset>
+"""
 
 
 # ---------------------------------------------------------------- run
@@ -1240,21 +1256,26 @@ def main():
     written.append(write("about.html", build_about()))
     written.append(write("contact.html", build_contact()))
     written.append(write("gallery.html", build_gallery()))
+    written.append(write("reviews.html", build_reviews()))
     written.append(write("areas.html", build_areas_index()))
     for a in AREAS:
         written.append(write(f"areas/{a[1]}.html", build_area(*a)))
     written.append(write("thank-you.html", build_thank_you()))
     written.append(write("404.html", build_404()))
-    written.append(write("sitemap.html", build_sitemap()))
-    written.append(write("credits.html", build_credits()))
+    written.append(write("sitemap.html", build_sitemap_page()))
+    written.append(write("sitemap.xml", build_sitemap_xml()))
 
     with open(os.path.join(ROOT, "robots.txt"), "w") as f:
-        f.write("# Demo site — kept out of search so it cannot compete with the real one.\n"
-                "User-agent: *\nDisallow: /\n")
+        f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
 
-    print(f"wrote {len(written)} pages")
-    for p in written:
-        print("  " + p)
+    # pages that no longer exist in this structure
+    for stale in ("credits.html", "services/gutters.html"):
+        p = os.path.join(ROOT, stale)
+        if os.path.exists(p):
+            os.remove(p)
+            print(f"removed stale {stale}")
+
+    print(f"wrote {len(written)} files")
 
 
 if __name__ == "__main__":

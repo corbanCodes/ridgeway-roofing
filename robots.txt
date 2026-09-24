@@ -1,3 +1,4 @@
-# Demo site — kept out of search so it cannot compete with the real one.
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://ridgewayroofingoh.com/sitemap.xml
