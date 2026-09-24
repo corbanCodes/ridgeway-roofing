@@ -1,0 +1,5 @@
+.DS_Store
+*.docx
+*.zip
+node_modules/
+__pycache__/
