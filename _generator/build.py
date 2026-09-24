@@ -13,10 +13,28 @@ is placeholder copy written for the build, not testimonials collected from
 named customers. Swap it for Terry's real reviews before this goes live.
 """
 
+import hashlib
 import os
 from datetime import date
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def asset(path):
+    """Return an asset URL with a content hash on it.
+
+    main.css and main.js live at stable URLs and change often, so a long
+    Cache-Control on them means returning visitors keep the old file and see a
+    half-styled page. The hash changes whenever the file does, which makes the
+    URL new and the cache irrelevant. Do not remove this.
+    """
+    full = os.path.join(ROOT, path.lstrip("/"))
+    try:
+        with open(full, "rb") as f:
+            h = hashlib.md5(f.read()).hexdigest()[:8]
+    except OSError:
+        return path
+    return f"{path}?v={h}"
 
 # ---------------------------------------------------------------- business
 
@@ -57,8 +75,12 @@ I = {
 
 
 def svg(name, cls=""):
+    # width/height are a fallback, not the real sizing — CSS overrides them.
+    # Without them an inline SVG with only a viewBox falls back to 300x150 if
+    # the stylesheet is missing or stale, which is how the header phone icon
+    # once rendered at the size of a dinner plate.
     c = f' class="{cls}"' if cls else ""
-    return f'<svg{c} viewBox="0 0 16 16">{I[name]}</svg>'
+    return f'<svg{c} viewBox="0 0 16 16" width="16" height="16">{I[name]}</svg>'
 
 
 def stars(n=5):
@@ -434,7 +456,7 @@ def head(title, desc, og_img="og-image", canonical="/", extra=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="{asset('/assets/css/main.css')}">
 {extra}</head>
 <body>
 """
@@ -526,7 +548,7 @@ def footer():
   <a class="dock-primary" href="/contact.html#quote">{svg('calendar')} Quote</a>
 </nav>
 
-<script src="/assets/js/main.js" defer></script>
+<script src="{asset('/assets/js/main.js')}" defer></script>
 </body>
 </html>
 """

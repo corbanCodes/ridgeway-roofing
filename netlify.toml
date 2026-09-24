@@ -27,17 +27,22 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+# Images sit at stable filenames on purpose, so that swapping in one of Terry's
+# real photos needs no code change. That means they must NOT be immutable —
+# a returning visitor would keep the old picture forever.
 [[headers]]
   for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+# Safe to cache hard: the generator appends a content hash to these URLs, so a
+# changed file is a changed URL. See asset() in _generator/build.py.
+[[headers]]
+  for = "/assets/css/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/assets/css/*"
-  [headers.values]
-    Cache-Control = "public, max-age=604800"
-
-[[headers]]
   for = "/assets/js/*"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=31536000, immutable"
