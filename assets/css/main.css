@@ -373,6 +373,18 @@ p { margin: 0 0 1em; }
 .step h3 { font-size: 1.15rem; margin-bottom: 6px; }
 .step p { font-size: 0.94rem; color: rgba(21, 28, 35, 0.7); margin: 0; }
 
+/* like .step but unnumbered — for card sets that are a list, not a sequence */
+.note-card { padding: 26px 24px 24px; border-radius: var(--radius-lg); background: rgba(255, 255, 255, 0.06); }
+.note-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: #fff; }
+.note-card p { font-size: 0.93rem; color: rgba(255, 255, 255, 0.72); margin: 0; }
+.note-card::before {
+  content: "";
+  display: block;
+  width: 26px; height: 4px; border-radius: 999px;
+  background: var(--amber);
+  margin-bottom: 16px;
+}
+
 /* ------------------------------------------------ FAQ accordion */
 .faq { border-bottom: 1px solid var(--line); }
 .faq summary {

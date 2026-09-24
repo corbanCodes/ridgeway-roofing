@@ -290,7 +290,7 @@ AREAS = [
     ("Waldo", "waldo-oh", "Marion County", "hero-areas",
      "Waldo is straight down 23 toward Delaware. Close enough to Marion that a repair call does not need to be a whole-day job."),
     ("Morral", "morral-oh", "Marion County", "hero-areas",
-     "Morral is north of Marion on the way to Upper Sandusky. Small village, lots of open exposure, and wind that finds the loose shingles on a roof every spring."),
+     "Morral is northwest of Marion, out toward Upper Sandusky. Small village, lots of open exposure, and wind that finds the loose shingles on a roof every spring."),
     ("New Bloomington", "new-bloomington-oh", "Marion County", "hero-areas",
      "New Bloomington is west of Marion in the farmland between 309 and 95. Rural work, outbuildings included."),
     ("Mount Gilead", "mount-gilead-oh", "Morrow County", "hero-areas",
@@ -300,13 +300,13 @@ AREAS = [
     ("Galion", "galion-oh", "Crawford County", "hero-areas",
      "Galion is northeast of Marion in Crawford County. A town with real Victorian housing stock, which means porch and trim carpentry alongside the roofing."),
     ("Bucyrus", "bucyrus-oh", "Crawford County", "hero-areas",
-     "Bucyrus is the Crawford County seat, north-east up 4 and 98. Far enough out that it is worth a phone call first, close enough that the answer is usually yes."),
+     "Bucyrus is the Crawford County seat, northeast up 98. Far enough out that it is worth a phone call first, close enough that the answer is usually yes."),
     ("Upper Sandusky", "upper-sandusky-oh", "Wyandot County", "hero-areas",
-     "Upper Sandusky is north of Marion on 23 and 199, the Wyandot County seat. Town houses and a lot of open farm property around it."),
+     "Upper Sandusky is north of Marion up 23, the Wyandot County seat. Town houses and a lot of open farm property around it."),
     ("Kenton", "kenton-oh", "Hardin County", "hero-areas",
      "Kenton is west of Marion, the Hardin County seat out past LaRue. Roofing, siding and outbuilding work all travel that far."),
     ("Richwood", "richwood-oh", "Union County", "hero-areas",
-     "Richwood is south-west of Marion in Union County, off 37. Village and rural properties both."),
+     "Richwood is southwest of Marion in Union County, off 37. Village and rural properties both."),
     ("Delaware", "delaware-oh", "Delaware County", "hero-areas",
      "Delaware is straight down 23 from Marion. The south end of the working radius &mdash; newer subdivisions as well as the older housing near downtown."),
 ]
@@ -808,10 +808,10 @@ def build_about():
     <span class="eyebrow">Who you are calling</span>
     <p class="lead">{BIZ_PLAIN} is {OWNER}'s company, based in {CITY}. The number on this site
       is his. When you call it, that is who picks up.</p>
-    <p>There is a version of this page that would tell you how many years he has been doing this,
-      how many roofs he has put on, and how many five-star reviews he has. None of those numbers
-      have been confirmed, so none of them are here. What is here came out of an actual
-      conversation.</p>
+    <p>That is the whole pitch, and on a house it matters more than it sounds. The person who
+      climbs the ladder to look at your roof is the person who writes the quote, and the person
+      who is there when the work happens. Nothing gets handed to a subcontractor you never met
+      and never agreed to.</p>
     <h3>Roofing, and the trades either side of it</h3>
     <p>Roofing is the headline. Beyond it: siding, replacement windows, porches, decks, framing,
       additions and interior finish work. Asked to describe the range, the answer was that there
@@ -838,27 +838,28 @@ def build_about():
 </div></section>
 
 <section class="section on-slate"><div class="wrap">
-  <div class="section-head reveal"><span class="eyebrow">Straight answers</span>
-    <h2>What This Site Does Not Claim</h2>
-    <p>A demo is easy to fill with numbers nobody checked. These four are deliberately blank until
-       Terry confirms them, and each one makes the site stronger the day it gets filled in.</p></div>
+  <div class="section-head reveal"><span class="eyebrow">Demo note &mdash; for Terry, not for customers</span>
+    <h2>Four Blanks, and What Each One Buys You</h2>
+    <p>A demo is easy to fill with numbers nobody checked, and this one deliberately is not. These
+       four slots are built and empty. Send the answers and they go live &mdash; each one is a trust
+       signal the competition already prints. This section comes off before launch.</p></div>
   <div class="grid grid-4">
-    <div class="step reveal" style="background:rgba(255,255,255,.06);box-shadow:none">
-      <h3 style="color:#fff">Years in the trade</h3>
-      <p style="color:rgba(255,255,255,.72)">No number is printed, because no number was confirmed.
-        It is the strongest single thing missing from this page.</p></div>
-    <div class="step reveal" style="background:rgba(255,255,255,.06);box-shadow:none">
-      <h3 style="color:#fff">License &amp; insurance</h3>
-      <p style="color:rgba(255,255,255,.72)">No &ldquo;licensed and insured&rdquo; badge until there
-        is a number and a certificate to put behind it.</p></div>
-    <div class="step reveal" style="background:rgba(255,255,255,.06);box-shadow:none">
-      <h3 style="color:#fff">Reviews</h3>
-      <p style="color:rgba(255,255,255,.72)">No invented testimonials and no star rating. The slot
-        is built and waiting for real ones.</p></div>
-    <div class="step reveal" style="background:rgba(255,255,255,.06);box-shadow:none">
-      <h3 style="color:#fff">Prices &amp; warranty</h3>
-      <p style="color:rgba(255,255,255,.72)">No price list, no &ldquo;free estimates&rdquo;, no
-        warranty terms &mdash; none of it has been agreed yet.</p></div>
+    <div class="note-card reveal">
+      <h3>Years in the trade</h3>
+      <p>One number, and it goes in the hero and the trust bar.
+        The strongest single thing missing.</p></div>
+    <div class="note-card reveal">
+      <h3>Insurance &amp; registration</h3>
+      <p>A certificate, and any municipal contractor
+        registration, earns a badge in the trust bar and the footer.</p></div>
+    <div class="note-card reveal">
+      <h3>Reviews</h3>
+      <p>A Google Business Profile fills the review band on the
+        home page, and earns a reviews page of its own.</p></div>
+    <div class="note-card reveal">
+      <h3>Free estimates</h3>
+      <p>If they are free, say so. Cheapest thing on this list
+        to add, and it belongs on every button.</p></div>
   </div>
 </div></section>
 
