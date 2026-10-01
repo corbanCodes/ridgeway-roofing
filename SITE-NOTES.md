@@ -4,6 +4,11 @@ Internal build notes. Not linked from the site. Read before changing copy.
 
 ---
 
+## Status
+
+Live at **ridgewayroofco.com** since 30 Sep 2026. Terry has seen it, likes the format, and is
+"pretty much ready to move forward" — he is doing a proper read-through when he gets a minute.
+
 ## ⚠️ The one thing to fix before this goes live
 
 **The seven reviews on the site are placeholder copy, not real testimonials.** They were written
@@ -154,8 +159,20 @@ Both bit during the build and both are commented in `main.css`. Watch for them i
 
    The Netlify site is still named `ridgeway-roofing-demo`. Renaming it would break the `www`
    CNAME, so either leave it or rename and update the CNAME at Namecheap in the same sitting.
-4. **Form endpoint.** `contact.html` still posts to the shared 60MS Formspree test form
-   (`xojeqvng`). Swap `FORM` for Terry's own endpoint or it will not reach him.
+
+   **`ridgewayroofing.com` was reported available (CRM, 30 Sep).** It is the better name. Moving
+   is cheap right now while the site is days old and has no backlinks or Google Business Profile
+   attached — register it, add it in Netlify, set it primary, and 301 `ridgewayroofco.com` to it.
+   It gets expensive once the GBP and any printed material point at the current one, so this is a
+   decide-now-or-leave-it call. Corban's to make, not changed here.
+4. **No contact form — done, and deliberate.** Terry asked for calls and texts only, so every
+   CTA on the site is a `tel:` or `sms:` link (126 of them) and the Formspree endpoint is gone.
+   `/contact.html` is a call panel with a "what to say when you call" checklist, and
+   `/thank-you.html` was deleted (301 to `/contact.html` in `netlify.toml`).
+
+   If he ever wants a form back: add it to `build_contact()`, restore the `.form-grid`,
+   `.field` and `.svc-check` rules that were stripped out of `main.css`, and point it at a real
+   endpoint — not the shared test one.
 5. **Google Business Profile.** Matters more than the website for a local contractor, and it is
    what fills the reviews section honestly.
 6. **A business email.** `Terryhuggins939@gmail.com` works; `terry@<domain>` looks like a company.

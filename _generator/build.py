@@ -51,8 +51,8 @@ STATE_AB   = "OH"
 REGION     = "North Central Ohio"
 HUBS       = "Marion, Delaware, Mansfield and Columbus"
 DOMAIN     = "https://ridgewayroofco.com"         # live domain (Namecheap DNS -> Netlify)
-FORM       = "https://formspree.io/f/xojeqvng"    # swap for Terry's own form endpoint
-SOURCE     = "ridgewayroofco.com"
+# No contact form anywhere on this site — Terry asked for calls and texts only.
+# Every CTA is a tel: or sms: link. If a form is ever wanted, see SITE-NOTES.md.
 TODAY      = date.today().isoformat()
 
 # ---------------------------------------------------------------- icons
@@ -398,11 +398,11 @@ AREAS = [
 # retire it as more of his own photos come in.
 
 RECENT = [
-    ("work-metal-house", "Green standing-seam metal roof on a two-story home, porch roof to match", "Metal roof", "metal"),
     ("work-metal-install", "Metal roof panels staged and going on over a long low building", "Metal roof", "metal"),
     ("work-church", "Finished metal roof on a church, with the lot clean and back in use", "Church roof", "commercial"),
     ("work-flat-crew", "Crew working single-ply membrane on a commercial flat roof", "Flat roof", "commercial"),
     ("work-shingle", "Architectural shingles going down over fresh underlayment", "Shingle roof", "roofing"),
+    ("work-metal-house", "Green standing-seam metal roof on a two-story home, porch roof to match", "Metal roof", "metal"),
 ]
 
 GALLERY = [
@@ -478,7 +478,7 @@ def header(active=""):
     <a href="/about.html"{cls('about')}>About</a>
     <a href="/contact.html"{cls('contact')}>Contact</a>
     <a class="nav-phone" href="tel:{TEL}">{svg('phone')} {PHONE}</a>
-    <a href="/contact.html#quote" class="btn btn-amber btn-sm nav-cta">Get a Quote</a>
+    <a href="tel:{TEL}" class="btn btn-amber btn-sm nav-cta">Call or Text</a>
   </nav>
 </div></header>
 """
@@ -493,7 +493,7 @@ def cta_band():
      what it does not.</p>
   <div class="hero-ctas">
     <a class="btn btn-amber" href="tel:{TEL}">{svg('phone')} Call {PHONE}</a>
-    <a class="btn btn-ghost" href="/contact.html#quote">{svg('calendar')} Request a Quote</a>
+    <a class="btn btn-ghost" href="sms:{SMS}">{svg('sms')} Text a Photo</a>
   </div>
 </div></section>
 """
@@ -542,10 +542,9 @@ def footer():
 <a class="call-fab" href="tel:{TEL}">{svg('phone')} Call {PHONE}</a>
 
 <nav class="dock" aria-label="Quick actions">
-  <a href="tel:{TEL}">{svg('phone')} Call</a>
+  <a class="dock-primary" href="tel:{TEL}">{svg('phone')} Call</a>
   <a href="sms:{SMS}">{svg('sms')} Text</a>
   <a href="mailto:{EMAIL}">{svg('mail')} Email</a>
-  <a class="dock-primary" href="/contact.html#quote">{svg('calendar')} Quote</a>
 </nav>
 
 <script src="{asset('/assets/js/main.js')}" defer></script>
@@ -662,8 +661,9 @@ def build_home():
          f"the run goes south to Columbus, northeast to Mansfield, and out into Morrow, Crawford, "
          f"Wyandot, Hardin and Union counties."),
         ("How do I get a quote?",
-         f"Call or text {PHONE}, email {EMAIL}, or use the form on the contact page. Photos of the "
-         f"problem help a lot, and texting them is the fastest way to get a useful answer."),
+         f"Call or text {PHONE}, or email {EMAIL}. There is no form to fill in &mdash; Terry would "
+         f"rather you just rang. Texting photos of the problem is the fastest way to get a useful "
+         f"answer."),
         ("Can you work on barns, garages and outbuildings?",
          "Yes, and a lot of the property around Marion County has them. Metal panel is usually the "
          "right answer on a long agricultural run, and it is the same crew either way."),
@@ -697,7 +697,7 @@ def build_home():
       for the whole job, across {REGION}.</p>
     <div class="hero-ctas">
       <a class="btn btn-amber" href="tel:{TEL}">{svg('phone')} Call {PHONE}</a>
-      <a class="btn btn-ghost" href="/contact.html#quote">Request a Quote</a>
+      <a class="btn btn-ghost" href="sms:{SMS}">{svg('sms')} Text a Photo</a>
     </div>
     <div class="hero-chips">
       <span>{svg('star')} Five stars, every review</span>
@@ -711,9 +711,9 @@ def build_home():
 
 <section class="section"><div class="wrap">
   <div class="section-head center reveal"><span class="eyebrow">What we do</span>
-    <h2>Nine Trades, One Phone Number</h2>
-    <p>Roofing is the name on the truck. The rest is what keeps people calling the same number
-       for the next thing.</p></div>
+    <h2>One Phone Number for the Whole Build</h2>
+    <p>Roofing is the name on the truck. Comprehensive experience across everything either side
+       of it is what keeps people calling the same number for the next thing.</p></div>
   <div class="grid grid-3">{service_cards()}</div>
 </div></section>
 
@@ -746,8 +746,8 @@ def build_home():
     </ul>
     <a class="btn btn-slate" href="/about.html">About {OWNER} {svg('arrow')}</a>
   </div>
-  <div class="split-img reveal"><img src="/assets/img/split-metal-house.jpg"
-    alt="A new standing-seam metal roof on a two-story home" loading="lazy" width="1100" height="900"></div>
+  <div class="split-img reveal"><img src="/assets/img/split-flat-crew.jpg"
+    alt="Ridgeway crew working a commercial flat roof" loading="lazy" width="1100" height="900"></div>
 </div></section>
 
 <section class="section on-slate"><div class="wrap">
@@ -803,7 +803,7 @@ def build_services_index():
     ) + header("services") + page_hero(
         "Services",
         "Roofing first &mdash; shingle, metal and commercial flat &mdash; and then most of the rest "
-        "of the build. Nine things Ridgeway does, and one number to ask about any of them.",
+        "of the build. One contractor across all of it, and one number to ask about any of it.",
         "hero-metal-install",
         ['<a href="/index.html">Home</a>', "Services"],
     ) + f"""
@@ -811,7 +811,7 @@ def build_services_index():
 
 <section class="section"><div class="wrap">
   <div class="section-head reveal"><span class="eyebrow">What we take on</span>
-    <h2>Nine Trades, One Contractor</h2>
+    <h2>One Contractor, Start to Finish</h2>
     <p>Each of these is a real service, not a keyword. Where they overlap &mdash; and on a building
        they overlap constantly &mdash; it is the same crew either way.</p></div>
   <div class="grid grid-3">{service_cards()}</div>
@@ -855,8 +855,8 @@ def build_service(s):
       <h3 style="margin-bottom:14px">What this normally includes</h3>
       <ul class="check-list" style="margin-bottom:22px">{includes}</ul>
       <a class="btn btn-amber" href="tel:{TEL}" style="width:100%">{svg('phone')} Call {PHONE}</a>
-      <p class="form-note">Or <a href="/contact.html#quote">send the details through the form</a> &mdash;
-        photos of the problem help more than anything else you can write.</p>
+      <a class="btn btn-ghost-dark" href="sms:{SMS}" style="width:100%;margin-top:10px">{svg('sms')} Text a Photo</a>
+      <p class="form-note">A photo of the problem tells Terry more than anything you could write.</p>
     </div>
   </div>
 </div></section>
@@ -883,7 +883,7 @@ def build_reviews():
     ) + header("reviews") + page_hero(
         "Reviews",
         f"Roofs, porches, siding and commercial work across {REGION}.",
-        "hero-metal",
+        "hero-church",
         ['<a href="/index.html">Home</a>', "Reviews"],
     ) + f"""
 {trust_bar()}
@@ -903,8 +903,8 @@ def build_reviews():
     <p>Metal on houses and churches, membrane on commercial flat roofs, shingles on everything else.</p>
     <a class="btn btn-amber" href="/gallery.html">See the work {svg('arrow')}</a>
   </div>
-  <div class="split-img reveal"><img src="/assets/img/split-flat-crew.jpg"
-    alt="Crew working a commercial flat roof" loading="lazy" width="1100" height="900"></div>
+  <div class="split-img reveal"><img src="/assets/img/split-metal-house.jpg"
+    alt="A finished standing-seam metal roof on a two-story home" loading="lazy" width="1100" height="900"></div>
 </div></section>
 
 {cta_band()}
@@ -921,7 +921,7 @@ def build_about():
     ) + header("about") + page_hero(
         f"Ridgeway Is {OWNER}",
         f"A {CITY}, {STATE} roofing and construction outfit, run by the person who shows up to the job.",
-        "hero-metal",
+        "hero-metal-install",
         ['<a href="/index.html">Home</a>', "About"],
     ) + f"""
 {trust_bar()}
@@ -941,7 +941,7 @@ def build_about():
       other people will not touch. Beyond the roof: siding, replacement windows, porches, decks,
       framing, additions and interior finish work. Asked to describe the range, Terry's answer was
       that there is not much in a construction build he does not do &mdash; which is why the
-      services list on this site is nine items long instead of one.</p>
+      services list on this site runs well past roofing.</p>
     <h3>Why that matters on your building</h3>
     <p>Exterior work runs together. Tear a roof off and you find the fascia. Deal with the fascia
       and you are into the soffit and the gutter. Re-side a wall and you find out what the last
@@ -971,54 +971,52 @@ def build_about():
 
 
 def build_contact():
-    checks = "\n".join(
-        f'<label class="svc-check"><input type="checkbox" name="services" value="{s["short"]}"> {s["short"]}</label>'
-        for s in SERVICES
-    )
     return head(
         f"Contact {OWNER} | {BIZ}",
-        f"Call or text {PHONE}, email {EMAIL}, or send the details through the form. "
-        f"{BIZ_PLAIN}, {CITY}, {STATE} &mdash; serving {REGION}.",
+        f"Call or text {PHONE}, or email {EMAIL}. {BIZ_PLAIN}, {CITY}, {STATE} &mdash; "
+        f"roofing and construction across {REGION}. No forms, just call.",
         og_img="hero-contact", canonical="/contact.html",
     ) + header("contact") + page_hero(
         "Get in Touch",
-        f"Call or text {PHONE}. Photos of the problem help more than anything else you can send.",
+        f"Call or text {PHONE}. No forms to fill in &mdash; you get Terry.",
         "hero-contact",
         ['<a href="/index.html">Home</a>', "Contact"],
     ) + f"""
 {trust_bar()}
 
 <section class="section"><div class="wrap split" style="align-items:start">
-  <div class="form-panel reveal">
-    <span class="eyebrow">Request a quote</span>
-    <h2 style="font-size:1.8rem">Tell Us About the Job</h2>
-    <form class="form-grid" action="{FORM}" method="POST" id="quote">
-    <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true">
-    <input type="hidden" name="_next" value="/thank-you.html">
-    <input type="hidden" name="source" value="{SOURCE}">
-    <div class="field"><label for="q-name">Your name *</label>
-      <input id="q-name" type="text" name="name" placeholder="Full name" required></div>
-    <div class="field"><label for="q-phone">Cell number *</label>
-      <input id="q-phone" type="tel" name="phone" placeholder="(740) 555-0123" required></div>
-    <div class="field"><label for="q-email">Email</label>
-      <input id="q-email" type="email" name="email" placeholder="you@email.com"></div>
-    <div class="field"><label for="q-town">Town</label>
-      <input id="q-town" type="text" name="town" placeholder="{CITY}, {STATE_AB}"></div>
-    <div class="field full"><label>What do you need looked at?</label>
-      <div class="svc-checks">{checks}</div></div>
-    <div class="field full"><label for="q-msg">Tell us what is going on</label>
-      <textarea id="q-msg" name="message" placeholder="Age of the roof, where the leak shows up, how long the porch has been like that &mdash; anything helps."></textarea></div>
-    <div class="field full">
-      <button class="btn btn-amber" type="submit" style="width:100%">Send It To Terry {svg('arrow')}</button>
-      <p class="form-note">Fastest route is still a call or a text to {PHONE}.</p>
-    </div>
-  </form>
+  <div class="reveal">
+    <span class="eyebrow">The quickest way</span>
+    <h2 style="font-size:2rem">Pick Up the Phone</h2>
+    <p>There is no contact form on this site, and that is deliberate. A roof is hard to describe
+      in a text box and easy to describe out loud, so the fastest route to a real answer is a
+      call &mdash; and the second fastest is a photo.</p>
+    <a class="btn btn-amber" href="tel:{TEL}" style="width:100%;font-size:1.25rem;padding:20px 30px">
+      {svg('phone')} {PHONE}</a>
+    <a class="btn btn-ghost-dark" href="sms:{SMS}" style="width:100%;margin-top:12px;padding:17px 30px">
+      {svg('sms')} Text a photo of the problem</a>
+    <p class="form-note" style="margin-top:16px">Same number for both. If Terry is up a ladder he
+      will call you back.</p>
+
+    <h3 style="margin-top:38px">What to say when you call</h3>
+    <ul class="check-list">
+      <li>{svg('check')}<span><strong>Where you are.</strong> Town is enough to start with.</span></li>
+      <li>{svg('check')}<span><strong>What the building is.</strong> House, church, shop, barn &mdash;
+        it changes the whole conversation.</span></li>
+      <li>{svg('check')}<span><strong>What you have noticed.</strong> A stain on the ceiling,
+        shingles in the yard, a porch post you can move by hand.</span></li>
+      <li>{svg('check')}<span><strong>How old the roof is</strong>, if you know. A rough guess is
+        fine, and "it was here when we bought it" is a real answer.</span></li>
+      <li>{svg('check')}<span><strong>Photos, if you can.</strong> Text them to {PHONE}. One from
+        the ground, one close up, and one of the inside of any stain.</span></li>
+    </ul>
   </div>
+
   <div class="channel-card reveal">
-    <h2 style="font-size:1.5rem;margin-bottom:12px">Or Reach Out Directly</h2>
+    <h2 style="font-size:1.5rem;margin-bottom:12px">Every Way to Reach Terry</h2>
     <a class="channel" href="tel:{TEL}">{svg('phone')}<span><b>Call {PHONE}</b><small>Fastest for anything urgent</small></span></a>
-    <a class="channel" href="sms:{SMS}">{svg('sms')}<span><b>Text a photo</b><small>A picture of the roof, the porch, the stain on the ceiling</small></span></a>
-    <a class="channel" href="mailto:{EMAIL}">{svg('mail')}<span><b>{EMAIL}</b><small>Email works too</small></span></a>
+    <a class="channel" href="sms:{SMS}">{svg('sms')}<span><b>Text {PHONE}</b><small>Send a picture &mdash; same number</small></span></a>
+    <a class="channel" href="mailto:{EMAIL}">{svg('mail')}<span><b>{EMAIL}</b><small>For documents, quotes and insurance paperwork</small></span></a>
     <div style="margin-top:14px;border-radius:12px;overflow:hidden">
       <iframe title="Service area map" loading="lazy" style="width:100%;height:240px;border:0"
         src="https://www.google.com/maps?q={CITY},+{STATE_AB}&z=8&output=embed"></iframe></div>
@@ -1153,7 +1151,7 @@ def build_area(name, slug, county, img, blurb):
       the deck, which on an older {name} building tend to arrive together.</p>
     <div class="hero-ctas" style="margin-top:26px">
       <a class="btn btn-amber" href="tel:{TEL}">{svg('phone')} Call {PHONE}</a>
-      <a class="btn btn-ghost-dark" href="/contact.html#quote">Request a quote</a>
+      <a class="btn btn-ghost-dark" href="sms:{SMS}">{svg('sms')} Text a photo</a>
     </div>
   </div>
   <div class="map-embed reveal">
@@ -1176,25 +1174,6 @@ def build_area(name, slug, county, img, blurb):
 </div></section>
 
 {cta_band()}
-{footer()}"""
-
-
-def build_thank_you():
-    return head(
-        f"Thank you | {BIZ}", "Your message has been sent.",
-        canonical="/thank-you.html",
-        extra='<meta name="robots" content="noindex">\n',
-    ) + header() + f"""<section class="section" style="padding-top:clamp(70px,10vw,130px)"><div class="wrap" style="max-width:680px;text-align:center">
-  <span class="eyebrow" style="text-align:center">Message sent</span>
-  <h1 style="font-size:clamp(2.1rem,4.4vw,3.2rem)">Thanks &mdash; That's In.</h1>
-  <p style="font-size:1.15rem;color:rgba(21,28,35,.75)">Your details are on their way to Terry.
-    If it is urgent, calling or texting {PHONE} is always faster than waiting on a form.</p>
-  <div class="hero-ctas" style="justify-content:center;margin:30px 0">
-    <a class="btn btn-amber" href="tel:{TEL}">{svg('phone')} Call {PHONE}</a>
-    <a class="btn btn-ghost-dark" href="/index.html">Back to the site</a>
-  </div>
-</div></section>
-
 {footer()}"""
 
 
@@ -1282,7 +1261,6 @@ def main():
     written.append(write("areas.html", build_areas_index()))
     for a in AREAS:
         written.append(write(f"areas/{a[1]}.html", build_area(*a)))
-    written.append(write("thank-you.html", build_thank_you()))
     written.append(write("404.html", build_404()))
     written.append(write("sitemap.html", build_sitemap_page()))
     written.append(write("sitemap.xml", build_sitemap_xml()))
@@ -1291,7 +1269,7 @@ def main():
         f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
 
     # pages that no longer exist in this structure
-    for stale in ("credits.html", "services/gutters.html"):
+    for stale in ("credits.html", "services/gutters.html", "thank-you.html"):
         p = os.path.join(ROOT, stale)
         if os.path.exists(p):
             os.remove(p)

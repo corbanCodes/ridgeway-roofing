@@ -20,6 +20,12 @@
   to = "/"
   status = 301
 
+# the contact form is gone — Terry wanted calls and texts only
+[[redirects]]
+  from = "/thank-you.html"
+  to = "/contact.html"
+  status = 301
+
 [[headers]]
   for = "/*"
   [headers.values]
