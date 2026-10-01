@@ -50,9 +50,9 @@ STATE      = "Ohio"
 STATE_AB   = "OH"
 REGION     = "North Central Ohio"
 HUBS       = "Marion, Delaware, Mansfield and Columbus"
-DOMAIN     = "https://ridgewayroofingoh.com"      # placeholder — see SITE-NOTES.md
+DOMAIN     = "https://ridgewayroofco.com"         # live domain (Namecheap DNS -> Netlify)
 FORM       = "https://formspree.io/f/xojeqvng"    # swap for Terry's own form endpoint
-SOURCE     = "ridgewayroofingoh.com"
+SOURCE     = "ridgewayroofco.com"
 TODAY      = date.today().isoformat()
 
 # ---------------------------------------------------------------- icons

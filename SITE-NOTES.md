@@ -142,9 +142,18 @@ Both bit during the build and both are commented in `main.css`. Watch for them i
 
 1. **Replace the seven placeholder reviews.** See the top of this file.
 2. **Confirm Marion** as the base of operations.
-3. **Domain.** Nothing is registered. `ridgewayroofingoh.com` is a placeholder and appears in the
-   canonical tag, the Open Graph tags and `sitemap.xml` on every page — it is set once, as
-   `DOMAIN` in the generator.
+3. **Domain — done.** `ridgewayroofco.com`, registered at Namecheap, DNS pointed at Netlify
+   (ALIAS `@` -> `apex-loadbalancer.netlify.com`, CNAME `www` -> `ridgeway-roofing-demo.netlify.app`).
+   `DOMAIN` in the generator is set to it, so the canonical tags, Open Graph tags and `sitemap.xml`
+   are all correct.
+
+   **Note the spelling.** `ridgewayroofingco.com` — with the "ing" — is a *different, already
+   registered* domain belonging to somebody else (Cloudflare nameservers, hosted on Thryv). It was
+   briefly added to Netlify by mistake and would never have verified. The correct domain has no
+   "ing": **ridgewayroofco.com**.
+
+   The Netlify site is still named `ridgeway-roofing-demo`. Renaming it would break the `www`
+   CNAME, so either leave it or rename and update the CNAME at Namecheap in the same sitting.
 4. **Form endpoint.** `contact.html` still posts to the shared 60MS Formspree test form
    (`xojeqvng`). Swap `FORM` for Terry's own endpoint or it will not reach him.
 5. **Google Business Profile.** Matters more than the website for a local contractor, and it is
